@@ -1,0 +1,125 @@
+.contact-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.75rem 1.6rem;
+  margin:1.5rem 0!important;
+}
+
+.contact-links a{
+  padding-bottom:.25rem;
+  border-bottom:1px solid rgba(234,220,201,.5);
+  font-family:Inter,"Helvetica Neue",Arial,sans-serif;
+  font-size:.72rem;
+  letter-spacing:.08em;
+}
+
+.contact-links a:hover,
+.contact-links a:focus-visible{border-color:var(--paper)}
+
+/* Opening composition: the introduction rests at lower left, while the
+   physical record peeks out from behind the sleeve on the right. */
+.credits-opening{
+  grid-template-columns:minmax(18rem,.78fr) minmax(24rem,1.22fr);
+  grid-template-rows:auto minmax(18rem,1fr);
+  align-items:start;
+  min-height:78vh;
+}
+
+.credits-opening>div{
+  grid-column:1;
+  grid-row:1;
+}
+
+.credits-opening>.credits-intro{
+  grid-column:1;
+  grid-row:2;
+  align-self:end;
+  max-width:31rem;
+  margin:0;
+  padding-bottom:.5rem;
+}
+
+.credits-intro span{display:block}
+.credits-intro span+span{margin-top:.65rem}
+
+.credits-opening .credits-album{
+  position:relative;
+  grid-column:2;
+  grid-row:1/3;
+  align-self:center;
+  width:100%;
+  min-height:clamp(28rem,46vw,42rem);
+  margin:0;
+}
+
+.credits-opening .credits-sleeve{
+  position:absolute;
+  z-index:2;
+  left:0;
+  top:50%;
+  width:min(73%,29rem);
+  max-width:none;
+  margin:0;
+  transform:translateY(-50%) rotate(-1.6deg);
+}
+
+.credits-vinyl{
+  position:absolute;
+  z-index:1;
+  right:1%;
+  top:50%;
+  width:min(72%,31rem);
+  aspect-ratio:1;
+  border-radius:50%;
+  background:
+    repeating-radial-gradient(circle,transparent 0 5px,rgba(7,26,42,.13) 6px,transparent 7px 10px),
+    radial-gradient(circle at 34% 28%,rgba(255,255,255,.72),rgba(226,183,145,.7) 34%,rgba(120,169,190,.72) 76%,rgba(7,26,42,.68));
+  box-shadow:0 32px 70px rgba(7,26,42,.28),inset 0 0 42px rgba(255,255,255,.25);
+  transform:translateY(-50%) rotate(8deg);
+}
+
+.credits-vinyl>span{
+  position:absolute;
+  inset:34%;
+  overflow:hidden;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(7,26,42,.25);
+}
+
+.credits-opening .credits-vinyl img{
+  width:100%;
+  max-width:none;
+  margin:0;
+  filter:saturate(.8) contrast(.95);
+  box-shadow:none;
+  transform:none;
+}
+
+@media(max-width:760px){
+  .contact-links{display:grid}
+
+  .credits-opening{
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto auto;
+    min-height:0;
+  }
+
+  .credits-opening>div{grid-column:1;grid-row:1}
+
+  .credits-opening .credits-album{
+    grid-column:1;
+    grid-row:2;
+    min-height:25rem;
+    margin:1.5rem 0 2.5rem;
+  }
+
+  .credits-opening>.credits-intro{
+    grid-column:1;
+    grid-row:3;
+    align-self:auto;
+    padding:0;
+  }
+
+  .credits-opening .credits-sleeve{width:70%}
+  .credits-vinyl{width:70%}
+}

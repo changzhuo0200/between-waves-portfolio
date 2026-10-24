@@ -1,0 +1,227 @@
+.xdf-page{--xdf-paper:#eee4d7;--xdf-ink:#071725;--xdf-accent:#b69a7c;--xdf-muted:rgba(244,234,223,.76)}
+.xdf-page .project-main{padding-top:clamp(4rem,8vw,8rem)}
+.xdf-hero{align-items:start}
+.xdf-hero h1{max-width:10.5ch;font-size:clamp(3.1rem,6.8vw,7.7rem);line-height:.88}
+.xdf-hero h1 em{display:block;margin-top:.25em;color:var(--xdf-muted);font-size:.54em;line-height:1.04;letter-spacing:-.025em}
+.xdf-hero__intro{padding-top:.4rem}
+.xdf-hero dl{grid-column:1/-1;margin-top:clamp(2rem,4vw,4rem);padding-top:1.5rem;border-top:1px solid var(--line)}
+.xdf-sections{margin-top:clamp(5rem,10vw,10rem);border-top:1px solid var(--line)}
+.xdf-section{padding:clamp(4rem,8vw,8.5rem) 0;border-bottom:1px solid var(--line)}
+.xdf-section__heading{display:grid;grid-template-columns:minmax(10rem,.55fr) minmax(18rem,1fr);gap:1.4rem 5vw;align-items:start;margin-bottom:clamp(3rem,6vw,6rem)}
+.xdf-section__heading>span,.feedback-section>span,.xdf-ending>span{color:var(--xdf-muted);font-size:.55rem;letter-spacing:.25em}
+.xdf-section__heading h2,.feedback-section h2,.xdf-ending h2{grid-column:2;margin:0;max-width:13ch;font:italic 400 clamp(2.6rem,5vw,6rem)/.92 Didot,"Bodoni 72","Songti SC",serif;letter-spacing:-.04em}
+.xdf-section__heading p{grid-column:2;max-width:42rem;margin:0;color:var(--xdf-muted);font:400 clamp(.9rem,1.15vw,1.08rem)/1.9 "Songti SC",STSong,serif;letter-spacing:.04em}
+.xdf-section__heading--compact{margin-bottom:3rem}
+.analysis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,2vw,2rem);max-width:72rem;margin-left:auto}
+.analysis-card{min-height:28rem;padding:clamp(2rem,4vw,4rem);border:1px solid var(--line);background:linear-gradient(145deg,rgba(244,234,223,.055),rgba(244,234,223,.012));box-shadow:0 24px 60px rgba(0,0,0,.17)}
+.analysis-card>span,.case-study__copy>span,.biology-stage header span{color:var(--xdf-accent);font-size:.54rem;letter-spacing:.22em}
+.analysis-card h3,.case-study__copy h3{margin:2.2rem 0 1.4rem;font:400 clamp(1.8rem,3vw,3.6rem)/1.08 "Songti SC",STSong,serif;letter-spacing:.02em}
+.analysis-card p,.analysis-card li,.case-study__copy p,.case-study__copy li,.case-study__copy blockquote{color:var(--xdf-muted);font:400 .96rem/1.85 "Songti SC",STSong,serif;letter-spacing:.035em}
+.analysis-card ol,.case-study__copy ul{margin:2rem 0 0;padding:1.4rem 0 0;list-style:none;border-top:1px solid var(--line)}
+.analysis-card li,.case-study__copy li{padding:.45rem 0}
+.analysis-card blockquote,.case-study__copy blockquote{margin:3rem 0 0;padding:1.5rem 0 0;border-top:1px solid var(--line);color:var(--paper);font-size:1.18rem}
+.workflow-section{position:relative;overflow:hidden}
+.workflow{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));margin:0;padding:3.2rem 1rem 2rem;list-style:none;background:linear-gradient(98deg,#e8ddcf,#f3eadf 48%,#e3d5c5);color:var(--xdf-ink);box-shadow:0 28px 80px rgba(0,0,0,.28)}
+.workflow:before{content:"";position:absolute;left:7%;right:7%;top:4.55rem;height:1px;background:rgba(7,23,37,.36);transform-origin:left center}
+.workflow:after{content:"";position:absolute;right:6.5%;top:4.22rem;width:.65rem;height:.65rem;border-top:1px solid rgba(7,23,37,.65);border-right:1px solid rgba(7,23,37,.65);transform:rotate(45deg)}
+.workflow li{position:relative;z-index:1;display:grid;justify-items:center;gap:1rem;text-align:center}
+.workflow li:before{content:"";width:.72rem;height:.72rem;border:1px solid var(--xdf-ink);border-radius:50%;background:var(--xdf-paper);box-shadow:0 0 0 .5rem var(--xdf-paper)}
+.workflow b{order:-1;font-size:.5rem;letter-spacing:.16em;font-weight:500}
+.workflow span{max-width:6rem;font:600 .78rem/1.4 "Songti SC",STSong,serif}
+.workflow li{padding:.6rem .35rem;border-radius:.25rem;cursor:pointer;transition:color .22s ease,background .22s ease,transform .22s ease}
+.workflow li:before{transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease}
+.workflow li:hover,.workflow li:focus-visible,.workflow li.is-active{color:#7b4f39;background:rgba(166,111,85,.09)}
+.workflow li:focus-visible{outline:2px solid #7b4f39;outline-offset:3px}
+.workflow li.is-active:before{border-color:#7b4f39;background:#a66f55;box-shadow:0 0 0 .48rem var(--xdf-paper),0 0 0 .62rem rgba(166,111,85,.28);transform:scale(1.18)}
+.workflow-detail{display:grid;grid-template-columns:2.8rem minmax(0,1fr);gap:1rem;align-items:center;min-height:4.8rem;margin:0;padding:1rem 1.4rem;border:1px solid var(--line);border-top:0;background:rgba(244,234,223,.035);color:var(--xdf-muted)}
+.workflow-detail span{color:var(--xdf-accent);font:.62rem/1 Inter,sans-serif;letter-spacing:.18em}
+.workflow-detail strong{font:400 clamp(.9rem,1.05vw,1rem)/1.65 "Songti SC",STSong,serif;letter-spacing:.01em}
+.production-credit{display:grid;grid-template-columns:minmax(14rem,.6fr) minmax(0,1.4fr);gap:2rem 6vw;align-items:end;margin-top:clamp(2.5rem,5vw,5rem);padding-top:2rem;border-top:1px solid var(--line)}
+.production-credit>div>span{color:var(--xdf-accent);font-size:.52rem;letter-spacing:.22em}
+.production-credit h3{margin:.8rem 0;font:400 clamp(1.5rem,2.4vw,2.5rem)/1.15 "Songti SC",STSong,serif}
+.production-credit p{max-width:32rem;margin:0;color:var(--xdf-muted);font:400 .88rem/1.8 "Songti SC",STSong,serif}
+.contribution-bar{display:grid;grid-template-columns:1fr 1fr 5fr 3fr;height:.55rem;background:rgba(244,234,223,.08);transform-origin:left center}
+.contribution-bar i{display:block;border-right:1px solid var(--deep)}
+.contribution-bar__template{background:#756b61}.contribution-bar__direction{background:#9a8875}.contribution-bar__ai{background:#d9c9b5}.contribution-bar__personal{background:#a66f55}
+.production-credit__visual ul{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:1.1rem 0 0;padding:0;list-style:none}
+.production-credit__visual li{display:grid;gap:.35rem}
+.production-credit__visual b{font-size:.58rem;letter-spacing:.14em;font-weight:500}
+.production-credit__visual li span{color:var(--xdf-muted);font-size:.6rem;line-height:1.5;letter-spacing:.08em}
+.case-study{display:grid;grid-template-columns:minmax(14rem,.52fr) minmax(0,1.48fr);gap:clamp(2rem,7vw,8rem);align-items:center;padding:clamp(4rem,8vw,8rem) 0;border-top:1px solid var(--line)}
+.case-study:first-of-type{border-top:0}
+.case-study--reverse .case-study__copy{order:2}
+.case-study__copy p{margin:0}
+.case-study__copy ul{padding-left:0}
+.note-card-grid{display:grid;gap:clamp(.8rem,2vw,1.5rem);align-items:start}
+.note-card-grid--two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.note-card{position:relative;margin:0;padding:.48rem .48rem 1.1rem;background:var(--xdf-paper);color:var(--xdf-ink);box-shadow:0 22px 55px rgba(0,0,0,.3);transform:rotate(-.45deg)}
+.note-card:nth-child(even){transform:rotate(.55deg) translateY(1.5rem)}
+.note-card img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;background:#ddd}
+.note-card figcaption{padding:.8rem .2rem 0;font-size:.48rem;line-height:1.4;letter-spacing:.18em;text-align:right;text-transform:uppercase}
+.case-study--biology{display:block}
+.case-study--biology .case-study__copy{display:grid;grid-template-columns:minmax(12rem,.55fr) minmax(16rem,1fr);gap:2rem 6vw;align-items:end;margin-bottom:clamp(3rem,6vw,6rem)}
+.case-study--biology .case-study__copy>span{grid-column:1/-1}
+.case-study--biology .case-study__copy h3{margin:0}
+.biology-stage{display:grid;grid-template-columns:minmax(0,.72fr) 4rem minmax(0,1.28fr);gap:clamp(.8rem,2vw,1.5rem);align-items:center}
+.biology-stage__group{min-width:0}
+.biology-stage__group header{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid var(--line)}
+.biology-stage__group h4{margin:0;font:400 clamp(1rem,1.4vw,1.3rem)/1.4 "Songti SC",STSong,serif}
+.biology-stage__cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;align-items:start}
+.biology-stage__group--initial .note-card{filter:saturate(.74);opacity:.74}
+.biology-stage__group--final .biology-stage__cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+.biology-stage__shift{display:grid;justify-items:center;gap:1rem;color:var(--xdf-accent)}
+.biology-stage__shift span{position:relative;width:100%;height:1px;background:currentColor}
+.biology-stage__shift span:after{content:"";position:absolute;right:0;top:-.28rem;width:.55rem;height:.55rem;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)}
+.biology-stage__shift b{font-size:.44rem;letter-spacing:.2em;writing-mode:vertical-rl;font-weight:500}
+.case-study__finding{max-width:44rem;margin:5rem 0 0 auto;color:var(--paper);font:italic 400 clamp(1.25rem,2.2vw,2rem)/1.6 "Songti SC",STSong,serif;text-align:right}
+.feedback-section{display:grid;grid-template-columns:minmax(10rem,.55fr) minmax(18rem,1fr);gap:1.4rem 5vw;background:radial-gradient(circle at 75% 50%,rgba(182,154,124,.12),transparent 40%)}
+.feedback-section h2,.feedback-section p{grid-column:2}
+.feedback-section p{max-width:43rem;margin:1.5rem 0 0;color:var(--paper);font:400 clamp(1.15rem,1.8vw,1.65rem)/1.8 "Songti SC",STSong,serif}
+.principle-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:0;padding:0;list-style:none}
+.principle-cards li{display:grid;align-content:space-between;gap:3rem;min-height:17rem;padding:1.5rem;border:1px solid rgba(7,23,37,.12);background:var(--xdf-paper);color:var(--xdf-ink);box-shadow:0 20px 50px rgba(0,0,0,.22)}
+.principle-cards b{font:400 .55rem/1 Inter,sans-serif;letter-spacing:.2em;color:#755b46}
+.principle-cards span{font:400 clamp(1.2rem,1.75vw,1.8rem)/1.45 "Songti SC",STSong,serif}
+.xdf-ending{display:grid;grid-template-columns:minmax(10rem,.55fr) minmax(18rem,1fr);gap:1.4rem 5vw;padding:clamp(5rem,10vw,11rem) 0;border-bottom:1px solid var(--line)}
+.xdf-ending h2,.xdf-ending p{grid-column:2}
+.xdf-ending p{max-width:45rem;margin:2rem 0 0;color:var(--xdf-muted);font:400 clamp(1rem,1.45vw,1.3rem)/2 "Songti SC",STSong,serif;letter-spacing:.04em}
+
+.has-motion .reveal{opacity:0;transform:translateY(18px)}
+.has-motion .reveal.is-visible{opacity:1;transform:none;transition:opacity .46s ease,transform .46s cubic-bezier(.2,.72,.18,1)}
+.has-motion .workflow:before{transform:scaleX(0)}
+.has-motion .workflow-section.is-visible .workflow:before{transform:scaleX(1);transition:transform .75s ease-out .12s}
+.has-motion .workflow li{opacity:.38;transform:translateY(10px)}
+.has-motion .workflow-section.is-visible .workflow li{opacity:1;transform:none;transition:opacity .32s ease,transform .32s ease}
+.has-motion .workflow-section.is-visible .workflow li:nth-child(1){transition-delay:.12s}.has-motion .workflow-section.is-visible .workflow li:nth-child(2){transition-delay:.18s}.has-motion .workflow-section.is-visible .workflow li:nth-child(3){transition-delay:.24s}.has-motion .workflow-section.is-visible .workflow li:nth-child(4){transition-delay:.3s}.has-motion .workflow-section.is-visible .workflow li:nth-child(5){transition-delay:.36s}.has-motion .workflow-section.is-visible .workflow li:nth-child(6){transition-delay:.42s}.has-motion .workflow-section.is-visible .workflow li:nth-child(7){transition-delay:.48s}
+.has-motion .contribution-bar{transform:scaleX(0)}
+.has-motion .workflow-section.is-visible .contribution-bar{transform:scaleX(1);transition:transform .65s ease-out .35s}
+.has-motion .bio-initial-card,.has-motion .bio-final-card{transition:opacity .45s ease,transform .52s cubic-bezier(.2,.72,.18,1),filter .45s ease}
+.has-motion .bio-final-card{opacity:0;transform:translateX(22px) rotate(.8deg)}
+.has-motion [data-biology].is-visible .bio-initial-card{opacity:.56;transform:translateX(-8px) scale(.96) rotate(-.45deg);filter:saturate(.6)}
+.has-motion [data-biology].is-visible .bio-final-card{opacity:1;transform:rotate(-.45deg)}
+.has-motion [data-biology].is-visible .bio-final-card:nth-child(2){transition-delay:.08s;transform:rotate(.55deg) translateY(1.5rem)}
+.has-motion [data-biology].is-visible .bio-final-card:nth-child(3){transition-delay:.16s}
+.has-motion .principle-cards li{opacity:0;transform:translateY(16px)}
+.has-motion .principles-section.is-visible .principle-cards li{opacity:1;transform:none;transition:opacity .36s ease,transform .36s ease}
+.has-motion .principles-section.is-visible .principle-cards li:nth-child(2){transition-delay:.06s}.has-motion .principles-section.is-visible .principle-cards li:nth-child(3){transition-delay:.12s}.has-motion .principles-section.is-visible .principle-cards li:nth-child(4){transition-delay:.18s}
+
+@media(max-width:900px){
+  .xdf-section__heading,.feedback-section,.xdf-ending{grid-template-columns:1fr}
+  .xdf-section__heading h2,.xdf-section__heading p,.feedback-section h2,.feedback-section p,.xdf-ending h2,.xdf-ending p{grid-column:1}
+  .analysis-grid{grid-template-columns:1fr}
+  .analysis-card{min-height:0}
+  .case-study{grid-template-columns:1fr}
+  .case-study--reverse .case-study__copy{order:0}
+  .case-study--biology .case-study__copy{grid-template-columns:1fr}
+  .case-study--biology .case-study__copy>span{grid-column:1}
+  .biology-stage{grid-template-columns:1fr}
+  .production-credit{grid-template-columns:1fr}
+  .biology-stage__shift{grid-template-columns:1fr auto 1fr;align-items:center;margin:.5rem 0}
+  .biology-stage__shift span{grid-column:1/-1;grid-row:1}
+  .biology-stage__shift b{grid-column:2;grid-row:1;padding:0 .8rem;background:var(--deep);writing-mode:horizontal-tb}
+  .principle-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:620px){
+  .xdf-hero h1{font-size:clamp(2.8rem,13vw,4.5rem)}
+  .xdf-section{padding:3.8rem 0}
+  .xdf-section__heading{margin-bottom:2.4rem}
+  .workflow{grid-template-columns:1fr;padding:1rem 1.3rem}
+  .workflow:before{left:2.07rem;right:auto;top:2rem;bottom:2rem;width:1px;height:auto;transform-origin:center top}
+  .workflow:after{display:none}
+  .workflow li{grid-template-columns:2rem 2rem 1fr;justify-items:start;align-items:center;gap:.5rem;min-height:4.1rem;text-align:left}
+  .workflow li:before{grid-column:1;grid-row:1}
+  .workflow b{grid-column:2;grid-row:1;order:0}
+  .workflow span{grid-column:3;grid-row:1;max-width:none;font-size:.9rem}
+  .has-motion .workflow:before{transform:scaleY(0)}
+  .has-motion .workflow-section.is-visible .workflow:before{transform:scaleY(1)}
+  .note-card-grid--two{gap:.65rem}
+  .note-card{padding:.32rem .32rem .8rem}
+  .note-card:nth-child(even){transform:rotate(.35deg) translateY(.8rem)}
+  .biology-stage__group--final .biology-stage__cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .biology-stage__group--final .note-card:last-child{grid-column:1/-1;width:calc(50% - .4rem);justify-self:center}
+  .principle-cards{grid-template-columns:1fr}
+  .production-credit__visual ul{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .principle-cards li{min-height:12rem}
+  .case-study__finding{text-align:left}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .has-motion .reveal,.has-motion .workflow li,.has-motion .bio-final-card,.has-motion .principle-cards li{opacity:1!important;transform:none!important;transition:none!important}
+  .has-motion .workflow:before{transform:none!important;transition:none!important}
+  .has-motion .contribution-bar{transform:none!important;transition:none!important}
+  .has-motion .bio-initial-card{transform:none!important;transition:none!important}
+}
+
+/* Editorial reading pass: natural wrapping, compact rhythm and uncropped evidence. */
+.xdf-hero{grid-template-columns:1fr;gap:1.5rem}
+.xdf-hero>span,.xdf-hero h1,.xdf-hero__intro,.xdf-hero dl{grid-column:1}
+.xdf-hero h1{max-width:none;font-size:clamp(3rem,5.15vw,5.8rem);font-style:normal;line-height:1.07;letter-spacing:-.025em;text-wrap:balance}
+.xdf-hero h1>span,.xdf-hero h1 em{display:block}
+.xdf-hero h1>span{font-family:"STZhongsong","华文中宋","Songti SC",STSong,serif;font-weight:600;letter-spacing:-.035em}
+.xdf-hero h1 em{max-width:none;margin-top:.28em;font-size:.52em;line-height:1.16;letter-spacing:.01em}
+.xdf-hero__intro{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem clamp(2rem,5vw,5rem);max-width:68rem;padding-top:.75rem}
+.xdf-hero__intro p{max-width:34rem;margin:0;font-size:clamp(.98rem,1.1vw,1.08rem);line-height:1.75;letter-spacing:.015em;text-wrap:pretty}
+.xdf-hero dl{margin-top:1.5rem}
+.xdf-hero dt{font-size:.6rem;letter-spacing:.18em}
+.xdf-hero dd{font-size:clamp(.8rem,1vw,.92rem);line-height:1.5;letter-spacing:.055em}
+.xdf-sections{margin-top:clamp(3.8rem,7vw,6.5rem)}
+.xdf-section{padding:clamp(3.8rem,6.5vw,6.8rem) 0}
+.xdf-section__heading{grid-template-columns:minmax(9rem,.36fr) minmax(0,1fr);gap:1.25rem clamp(2.5rem,5vw,5rem);margin-bottom:clamp(2.8rem,5vw,4.8rem)}
+.xdf-section__heading h2,.feedback-section h2,.xdf-ending h2{max-width:19ch;font-style:normal;font-size:clamp(2.35rem,3.9vw,4.6rem);line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+.xdf-section__heading p{max-width:40rem;font-size:clamp(.96rem,1.08vw,1.06rem);line-height:1.76;letter-spacing:.015em;text-wrap:pretty}
+.analysis-grid{max-width:68rem;gap:clamp(1.2rem,2.2vw,2.2rem)}
+.analysis-card{min-height:23rem;padding:clamp(2rem,3.3vw,3.3rem)}
+.analysis-card h3,.case-study__copy h3{margin:1.7rem 0 1.15rem;font-size:clamp(1.75rem,2.5vw,3rem);line-height:1.18;letter-spacing:0;text-wrap:balance}
+.analysis-card p,.analysis-card li,.case-study__copy p,.case-study__copy li,.case-study__copy blockquote{font-size:clamp(.96rem,1.02vw,1.02rem);line-height:1.76;letter-spacing:.012em;text-wrap:pretty}
+.analysis-card blockquote,.case-study__copy blockquote{margin-top:2.2rem;font-size:1.08rem}
+.production-credit{grid-template-columns:minmax(15rem,.68fr) minmax(0,1.32fr);align-items:center}
+.production-credit p{font-size:.94rem;line-height:1.72;letter-spacing:.01em}
+.production-credit__visual ul{grid-template-columns:1fr 1fr 5fr 3fr;gap:0}
+.production-credit__visual li{justify-items:center;padding:.15rem .35rem 0;text-align:center}
+.production-credit__visual li span{max-width:9rem;letter-spacing:.04em}
+.case-study{grid-template-columns:minmax(15rem,.68fr) minmax(0,1.32fr);gap:clamp(2.5rem,5vw,5.5rem);padding:clamp(3.8rem,6.5vw,6.8rem) 0}
+.case-study--reverse{grid-template-columns:minmax(0,1.32fr) minmax(15rem,.68fr)}
+.case-study__copy{max-width:32rem}
+.note-card-grid{width:100%;max-width:58rem;justify-self:center}
+.note-card{padding:.55rem .55rem 1rem}
+.note-card img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
+.note-card figcaption{padding-top:.72rem;letter-spacing:.12em}
+.case-study--biology .case-study__copy{grid-template-columns:minmax(15rem,.62fr) minmax(18rem,1fr);margin-bottom:clamp(2.8rem,5vw,4.8rem)}
+.case-study--biology .case-study__copy h3 small{display:block;margin-bottom:.75rem;color:var(--xdf-accent);font:500 .57rem/1.2 Inter,sans-serif;letter-spacing:.22em;text-transform:uppercase}
+.biology-stage__group--initial .note-card{filter:none;opacity:1}
+.has-motion [data-biology].is-visible .bio-initial-card{opacity:1;transform:rotate(-.25deg);filter:none}
+.case-study__finding{margin-top:3.5rem;font-style:normal;font-size:clamp(1.18rem,1.8vw,1.65rem);line-height:1.7}
+.feedback-section{grid-template-columns:minmax(9rem,.36fr) minmax(0,1fr)}
+.feedback-section p{font-size:clamp(1.05rem,1.45vw,1.35rem);line-height:1.75;text-wrap:pretty}
+.principles-section{padding-top:clamp(2.4rem,4vw,3.8rem)}
+.principles-section .xdf-section__heading--compact{margin-bottom:clamp(1.6rem,2.5vw,2.5rem)}
+.xdf-ending{grid-template-columns:minmax(9rem,.36fr) minmax(0,1fr);padding:clamp(4.5rem,7vw,7.5rem) 0}
+.xdf-ending p{font-size:clamp(1rem,1.2vw,1.16rem);line-height:1.78;letter-spacing:.015em;text-wrap:pretty}
+
+@media(max-width:1200px){
+  .biology-stage{grid-template-columns:1fr}
+  .biology-stage__shift{grid-template-columns:1fr auto 1fr;align-items:center;margin:.8rem 0}
+  .biology-stage__shift span{grid-column:1/-1;grid-row:1}
+  .biology-stage__shift b{grid-column:2;grid-row:1;padding:0 .8rem;background:var(--deep);writing-mode:horizontal-tb}
+}
+
+@media(max-width:900px){
+  .xdf-hero__intro{grid-template-columns:1fr;gap:.75rem}
+  .xdf-section__heading,.feedback-section,.xdf-ending{grid-template-columns:1fr}
+  .case-study,.case-study--reverse{grid-template-columns:1fr}
+  .case-study--reverse .case-study__copy{order:0}
+  .case-study__copy{max-width:40rem}
+}
+
+@media(max-width:620px){
+  .xdf-hero h1{font-size:clamp(2.65rem,12vw,4.1rem);line-height:1.08}
+  .xdf-hero h1 em{font-size:.56em}
+  .xdf-section__heading h2,.feedback-section h2,.xdf-ending h2{font-size:clamp(2.2rem,10vw,3.35rem);line-height:1.1}
+  .production-credit__visual .contribution-bar{display:none}
+  .production-credit__visual ul{grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+  .production-credit__visual li{min-height:4.6rem;align-content:center;border-top:4px solid var(--xdf-accent);background:rgba(244,234,223,.035)}
+  .production-credit__visual li:nth-child(1){border-color:#756b61}.production-credit__visual li:nth-child(2){border-color:#9a8875}.production-credit__visual li:nth-child(3){border-color:#d9c9b5}.production-credit__visual li:nth-child(4){border-color:#a66f55}
+  .workflow-detail{grid-template-columns:2.2rem 1fr;padding:.9rem 1rem}
+}
+
+.has-motion .workflow-section.is-visible .workflow li.is-active{transform:translateY(-.22rem)}

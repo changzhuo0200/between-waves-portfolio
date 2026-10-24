@@ -1,0 +1,19 @@
+.DS_Store
+
+# Internal review and QA material — not part of the public portfolio.
+content-review/
+qa/
+tmp/
+tests/
+scripts/
+design-qa.md
+qa-compare.html
+qa-*.jpg
+qa-*.png
+preview-*.jpg
+preview-*.png
+
+# Oversized local masters. Public web encodes are tracked instead.
+assets/videos/a01-main-web.m4v
+assets/videos/a01-related-web.m4v
+

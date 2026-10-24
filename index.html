@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#03101c">
+  <meta name="description" content="BETWEEN WAVES — 行于浪间，Carnell Chang Zhuo 的个人作品档案。">
+  <title>BETWEEN WAVES — 行于浪间</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="mobile-menu.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
+  <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+    <filter id="water-warp" x="-15%" y="-30%" width="130%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.025" numOctaves="2" seed="11" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="11" xChannelSelector="R" yChannelSelector="B"/>
+    </filter>
+  </svg>
+
+  <main id="main-content">
+    <section class="hero" id="home" data-state="idle" aria-labelledby="hero-title">
+      <img class="ocean" src="assets/ocean-background-clean-v2.png" alt="暗蓝海面与橙色夕光">
+      <div class="vignette" aria-hidden="true"></div>
+      <div class="warm-field" aria-hidden="true"></div>
+      <div class="cursor-light" aria-hidden="true"></div>
+      <div class="water-caustics" aria-hidden="true"></div>
+      <div class="film-grain" aria-hidden="true"></div>
+
+      <header class="topbar">
+        <a class="brand" href="index.html">CARNELL CHANG ZHUO</a>
+        <nav class="site-nav" aria-label="主要导航">
+          <a href="index.html" aria-current="page"><b>01</b>首页</a>
+          <a href="works.html" data-page-link="works"><b>02</b>作品</a>
+          <a href="works.html?side=a" data-page-link="sideA"><b>03</b>SIDE A</a>
+          <a href="works.html?side=b" data-page-link="sideB"><b>04</b>SIDE B</a>
+          <a href="bonus.html" data-page-link="bonus"><b>05</b>附加曲目</a>
+          <a href="about.html" data-page-link="about"><b>06</b>关于</a>
+        </nav>
+        <div class="archive-note">A PERSONAL ARCHIVE<br>IN SOUND, IMAGE AND WORD.</div>
+      </header>
+
+      <aside class="left-index" aria-label="项目编号">
+        RESEARCH<br>CONTENT<br>DESIGN<br>AND OTHER<br>POSSIBILITIES.
+      </aside>
+      <aside class="track-index" aria-label="唱片目录">
+        <a href="works.html?side=a" data-page-link="sideA"><b>A</b><span>SIDE A<br>CREATIVE WORKS</span></a>
+        <a href="works.html?side=b" data-page-link="sideB"><b>B</b><span>SIDE B<br>SYSTEMS &amp; PRACTICE</span></a>
+        <a href="bonus.html" data-page-link="bonus"><b>+</b><span>BONUS TRACKS</span></a>
+        <a href="lyrics.html" data-page-link="lyrics"><b>LN</b><span>LINER NOTES</span></a>
+        <a href="about.html" data-page-link="about"><b>CR</b><span>CREDITS</span></a>
+      </aside>
+
+      <div class="intro">
+        <h1 id="hero-title">行于浪间</h1>
+        <p>在起伏之间，摸索自我的形状</p>
+      </div>
+
+      <div class="product-stage" aria-label="BETWEEN WAVES 唱片档案套装">
+        <div class="album-rig">
+          <div class="product-reflection" aria-hidden="true"></div>
+
+          <div class="object-button archive-card" aria-hidden="true">
+            <img src="assets/poster-card-v3.png" alt="海面摄影档案卡">
+          </div>
+          <button class="object-button liner-card" type="button" data-target="about" data-label="CR · CREDITS" aria-label="打开创作档案与关于">
+            <img src="assets/poster-card-v3.png" alt="BETWEEN WAVES 创作档案卡">
+          </button>
+          <button class="object-button poster-card" type="button" data-target="bonus" data-label="BT · BONUS TRACKS" aria-label="打开附加曲目">
+            <img src="assets/poster-card-v3.png" alt="BETWEEN WAVES 海面海报卡">
+          </button>
+          <button class="object-button lyrics-booklet" type="button" data-target="lyrics" data-label="LN · LINER NOTES" aria-label="打开歌词本与创作笔记">
+            <img src="assets/lyrics-booklet-v3.png" alt="展开的 BETWEEN WAVES 歌词本">
+          </button>
+
+          <button class="object-button vinyl" type="button" data-target="sideA" data-label="SIDE A / SIDE B" aria-label="进入唱片曲目">
+            <span class="vinyl-label"><img src="assets/vinyl-label-art-v4.png" alt="BETWEEN WAVES 唱片中心标签"></span>
+          </button>
+
+          <button class="object-button sleeve" type="button" data-target="works" data-label="SELECTED WORKS · EDITION 01" aria-label="进入完整作品曲目">
+            <span class="sleeve-edge" aria-hidden="true"></span>
+            <span class="sleeve-face"><img src="assets/sleeve-cover-art-v3.png" alt="BETWEEN WAVES 封套正面"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="enter-zone">
+        <button class="enter-button" type="button" aria-label="点击进入卓畅的作品集"></button>
+        <span class="enter-label">点击进入卓畅的作品集</span>
+      </div>
+      <button class="explore-link" type="button">EXPLORE THE RECORD</button>
+      <p class="scroll-note">SELECT TO EXPLORE</p>
+      <p class="mode-note">SELECT AN OBJECT TO ENTER ITS ARCHIVE</p>
+      <p class="image-fallback" role="status" hidden>视觉素材未能载入，请确认 assets 文件夹与 HTML 位于同一目录。</p>
+    </section>
+
+  </main>
+  <script src="site-data.js?v=20261024-2"></script>
+  <script src="interactions.js?v=20261024-2"></script>
+  <script src="mobile-menu.js"></script>
+</body>
+</html>

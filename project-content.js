@@ -1,0 +1,61 @@
+window.BETWEEN_WAVES_PROJECTS = Object.freeze({
+  a01: { role: '策划 · 剪辑 · 叙事节奏', intro: '这支影像从一次周年纪念开始。保留、发现、珍藏玩家与角色共同走过的时间。', blocks: [
+    { type: 'text', eyebrow: 'OPENING NOTE', title: '《今 -明日世界が終わっても》', body: ['即便今夜，世界即将终结。', '我从“继续向前”而不是“告别”进入这支片子。', '素材选择围绕同行、失去与再次确认彼此展开。'] },
+    { type: 'video', eyebrow: 'PRIMARY WORK', title: '爱如初见，热血沸腾', src: 'assets/videos/a01-main-public.m4v', poster: 'assets/projects/a01/video-poster.jpg', caption: '2024 · 游戏音乐影像 · 本地播放' },
+    { type: 'process', eyebrow: 'EDITING NOTE', title: '把纪念感压进两分钟', steps: ['先确定情绪弧线，按关系变化重排剧情素材。', '让音乐转折成为剪辑节点，而不是逐句对应歌词。', '减少解释性字幕，把理解空间还给画面。'] },
+    { type: 'image', eyebrow: 'ARCHIVE FRAGMENT', title: '最初的作品集记录', src: 'assets/projects/a01/portfolio-page.jpg', alt: 'A01 早期作品集页面节选', caption: '旧页面作为档案证据出现，不作为整页主体' },
+    { type: 'video', eyebrow: 'RELATED CUT', title: '夏彦生日 · Ditto', src: 'assets/videos/a01-related-public.m4v', poster: 'assets/projects/a01/ditto-poster.jpg', caption: '同一时期对角色记忆与陪伴的另一种剪辑，追求更加细水长流的感情羁绊。' },
+  ] },
+  a02: { role: '策划 · 剪辑 · 角色叙事', intro: '我想把祁煜故事里爱、失控与互相牵引的感觉，压缩进一段短而完整的情绪张力中。', blocks: [
+    { type: 'text', eyebrow: 'OPENING NOTE', title: 'Don’t Blame Me', body: ['一段从吸引走向失控的主观感受。'] },
+    { type: 'video', eyebrow: 'PRIMARY WORK', title: 'Don’t Blame Me', src: 'assets/videos/a02-main-web.m4v', poster: 'assets/projects/a02/video-poster.jpg', caption: '2024 · 游戏音乐影像 · 本地播放' },
+    { type: 'process', eyebrow: 'RHYTHM', title: '五十四秒的关系曲线', steps: ['用最短镜头建立角色吸引力。', '在节拍加速时增加动作与视线的冲突。', '结尾保留未被解释的停顿。'] },
+    { type: 'image', eyebrow: 'ARCHIVE FRAGMENT', title: '早期呈现', src: 'assets/projects/a02/portfolio-page.jpg', alt: 'A02 早期作品集页面节选', caption: '作为过程档案重新裁切进入歌词本。' },
+    { type: 'text', eyebrow: 'DECISION', title: '不再追加延伸剪辑', body: ['短片也需要完整呼吸。即使时长很短，观众仍然需要进入、转折与离开的时间。'] },
+  ] },
+  a03: { role: '研究 · 内容组织 · 公开分享', intro: '从游戏中的建筑、音乐与角色设计出发，我追问文化如何被重新讲述。', blocks: [
+    { type: 'text', eyebrow: 'CONTEXT', title: '从熟悉感开始追问', body: ['我关心的不只是元素有没有出现，而是它们怎样进入玩家的理解。'] },
+    { type: 'image', eyebrow: 'PRIMARY WORK', title: '研究与分享', src: 'assets/projects/a03/portfolio-page.jpg', alt: 'A03 研究展示节选', caption: '选取核心图像与论点重新排版。' },
+    { type: 'process', eyebrow: 'METHOD', title: '观察路径', steps: ['拆分视觉、音乐与叙事线索。', '比较文化符号与世界观功能。', '把分析重组为可公开讲述的顺序。'] },
+    { type: 'text', eyebrow: 'DECISION', title: '不把文化当装饰', body: ['判断重点放在符号如何参与空间、角色和玩家经验。'] },
+    { type: 'gallery', eyebrow: 'FRAGMENTS', title: '研究切片', items: [{ src: 'assets/projects/a03/portfolio-page.jpg', alt: 'A03 研究材料切片' }] },
+    { type: 'reflection', eyebrow: 'LISTENING NOTE', title: '被看见之后', body: '这次分享让我开始关注文化输出背后的选择权与解释权。' },
+  ] },
+  a04: { role: '课程设计 · 引导 · 质性分析', intro: '这堂一对一课程从玩家经验出发，把模糊感受拆成可以继续追问的问题。', blocks: [
+    { type: 'text', eyebrow: 'CONTEXT', title: '先听见玩家怎么说', body: ['课程不是把结论交给学生，而是帮助他形成自己的分析语言。'] },
+    { type: 'image', eyebrow: 'PRIMARY WORK', title: '两小时课程结构', src: 'assets/projects/a04/course-page.jpg', alt: 'A04 课程页面节选', caption: '课程结构与关键提问节选。' },
+    { type: 'process', eyebrow: 'FRAMEWORK', title: '从体验到判断', steps: ['描述具体游玩片段。', '识别情绪与设计线索。', '比较不同解释。', '形成可复述的判断。'] },
+    { type: 'text', eyebrow: 'TEACHING NOTE', title: '问题比术语更重要', body: ['术语只在能帮助学生说清经验时出现。'] },
+    { type: 'gallery', eyebrow: 'MATERIAL', title: '课件切片', items: [{ src: 'assets/projects/a04/course-page.jpg', alt: 'A04 课程材料切片' }] },
+    { type: 'reflection', eyebrow: 'LISTENING NOTE', title: '共同完成的分析', body: '好的引导不是替学生命名，而是陪他找到更准确的表达。' },
+  ] },
+  b02: { role: '产品构想 · 交互原型 · 数据伦理', intro: '我把数据正义的问题转成一个学生可以看见、理解并控制教育数据的产品原型。', blocks: [
+    { type: 'text', eyebrow: 'CONTEXT', title: '数据属于谁', body: ['项目从学生在教育数据系统中的被动位置开始。'] },
+    { type: 'image', eyebrow: 'PRIMARY WORK', title: 'My Data Wallet', src: 'assets/projects/b02/case-canvas.png', alt: 'My Data Wallet 在在线考试场景中的应用', caption: '从 Canvas 在线考试场景进入学生数据被收集的问题。', link: { href: 'https://mydatawalletishere.netlify.app/', label: '查看可交互原型' } },
+    { type: 'process', eyebrow: 'PRODUCT LOGIC', title: '把权利做成交互', steps: ['看见数据来源。', '理解使用目的。', '决定授权范围。', '保留撤回与追踪记录。'] },
+    { type: 'text', eyebrow: 'DECISION', title: '不把透明等同于更多文字', body: ['信息需要在决策发生的时刻出现。'] },
+    { type: 'gallery', eyebrow: 'INTERFACE', title: '界面证据', body: ['真实场景、授权选择、集体治理与产品边界被放在同一条使用路径中。'], items: [
+      { src: 'assets/projects/b02/granular-control.png', alt: 'My Data Wallet 细粒度授权界面', caption: '按数据类型、授权范围和时长做细粒度选择。' },
+      { src: 'assets/projects/b02/collective-governance.png', alt: 'My Data Wallet 学生集体治理界面', caption: '学生通过 Data Commons 共同表决平台的数据请求。' },
+      { src: 'assets/projects/b02/wallet-proposal.png', alt: 'My Data Wallet 钱包与提案界面', caption: '数据收益进入个人钱包，也能用于发起新的提案。' },
+      { src: 'assets/projects/b02/limits.png', alt: 'My Data Wallet 原型限制说明', caption: '原型主动呈现制度协作、数字素养与技术边界。' },
+    ], link: { href: 'https://mydatawalletishere.netlify.app/', label: '打开 My Data Wallet' } },
+    { type: 'reflection', eyebrow: 'LISTENING NOTE', title: '从批判到产品', body: '原型让我看见：把数据正义变成可用的教育科技产品，需要同时面对制度协作、数字素养与技术边界。理想可以成为起点，但落地需要更多现实条件。' },
+  ] },
+  bt01: { role: '内容策略 · 工具设计 · 工作流', intro: '当选题判断开始重复出现，我把经验整理成可以继续使用和修改的工具。', blocks: [
+    { type: 'text', eyebrow: 'CONTEXT', title: '把重复判断留下来', body: ['工具来自真实内容工作，而不是先有功能再寻找场景。'] },
+    { type: 'image', eyebrow: 'PRIMARY WORK', title: '小红书选题实验室', src: 'assets/projects/bt01/workbench-start.png', alt: '选题实验室工作台起始页', caption: '从一个真实母题开始搭建创意配方。' },
+    { type: 'process', eyebrow: 'WORKFLOW', title: '从母题到笔记', steps: ['确定服务与人群。', '形成场景化母题。', '补充证据与内容配方。', '输出可修改的选题卡。'] },
+    { type: 'gallery', eyebrow: 'STATE & DECISION', title: '工具不替人做判断', body: ['它负责保存结构，把语境与取舍留给使用者。', '每次真实使用都会暴露新的边界，也成为下一轮修改的依据。'], items: [
+      { src: 'assets/projects/bt01/workbench-start.png', alt: '输入母题并搭建创意配方', caption: '01 / 输入母题，选择创作变量。' },
+      { src: 'assets/projects/bt01/workbench-plan.png', alt: '由创意配方生成选题方案', caption: '02 / 把配方展开为可继续修改的选题方案。' },
+      { src: 'assets/projects/bt01/workbench-compare.png', alt: '不同版本的选题实验室界面对照', caption: '03 / 对照不同方向，再保存或继续探索。' },
+    ] },
+  ] },
+  bt02: { role: '内容组织 · 视觉统筹 · 团队协作', intro: '这是一份修改二十四版的团队汇报，也是一次把庞杂工作重新组织成共同叙事的练习。', blocks: [
+    { type: 'text', eyebrow: 'CONTEXT', title: '展演不只是汇报', body: ['我们需要让观众在一条合理的故事线中，理解学院学生会不同工作之间的关系。'] },
+    { type: 'image', eyebrow: 'PRIMARY WORK', title: '五课为基，以实厚生', src: 'assets/projects/bt02/portfolio-page.jpg', alt: '学生会展演页面', caption: '最终汇报视觉与过程档案。' },
+    { type: 'process', eyebrow: 'REVISION', title: '二十四版如何发生', steps: ['先统一核心命题。', '重排部门材料。', '压缩重复信息。', '让口述节奏与画面节奏一致。'] },
+    { type: 'text', eyebrow: 'COLLABORATION · ARCHIVE', title: '让不同声音进入同一结构', body: ['统筹不是抹平差异，而是为每部分找到必要的位置。', '二十四版不是单纯的返工记录。反复修改让我理解，完整叙事往往来自持续删减与重新排序。'] },
+  ] },
+});
