@@ -11,7 +11,6 @@
   const accessoryButtons = document.querySelectorAll('.liner-card, .poster-card, .lyrics-booklet');
   const objectButtons = document.querySelectorAll('button.object-button');
   const PAGE_TARGETS = window.BETWEEN_WAVES.routes;
-  const returnedExpanded = new URLSearchParams(location.search).get('state') === 'expanded';
   let targetX = 0;
   let targetY = 0;
   let currentX = 0;
@@ -89,14 +88,23 @@
     }, focusDelay + (reduced.matches ? 20 : 520));
   };
 
+  const revealOrNavigate = (button, target) => {
+    if (transitionLock) return;
+    if (!hero.classList.contains('is-exploded')) {
+      setExploded(true);
+      return;
+    }
+    focusAndNavigate(button, target, false);
+  };
+
   const toggleExploded = () => {
     if (!transitionLock) setExploded(!hero.classList.contains('is-exploded'));
   };
-  enterButton.addEventListener('click', () => focusAndNavigate(sleeve, 'works', false));
+  enterButton.addEventListener('click', () => revealOrNavigate(sleeve, 'works'));
   exploreButton.addEventListener('click', toggleExploded);
 
-  sleeve.addEventListener('click', () => focusAndNavigate(sleeve, 'works', false));
-  vinyl.addEventListener('click', () => focusAndNavigate(vinyl, 'sideA', false));
+  sleeve.addEventListener('click', () => revealOrNavigate(sleeve, 'works'));
+  vinyl.addEventListener('click', () => revealOrNavigate(vinyl, 'sideA'));
 
   accessoryButtons.forEach((button) => button.addEventListener('click', () => {
     focusAndNavigate(button, button.dataset.target, true);
@@ -124,14 +132,24 @@
 
   document.querySelector('.brand').addEventListener('click', () => setExploded(false));
 
-  if (returnedExpanded) {
-    setExploded(true);
-    hero.classList.add('is-returning');
+  const resetHome = () => {
+    transitionLock = false;
+    hero.classList.remove('is-leaving', 'is-returning');
+    document.body.removeAttribute('aria-busy');
+    delete hero.dataset.destination;
+    setExploded(false);
+
     const cleanUrl = new URL(location.href);
-    cleanUrl.searchParams.delete('state');
-    history.replaceState(null, '', cleanUrl);
-    requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.remove('is-returning')));
-  }
+    if (cleanUrl.searchParams.has('state')) {
+      cleanUrl.searchParams.delete('state');
+      history.replaceState(null, '', `${cleanUrl.pathname}${cleanUrl.search}${cleanUrl.hash}`);
+    }
+  };
+
+  resetHome();
+  addEventListener('pageshow', (event) => {
+    if (event.persisted) resetHome();
+  });
 
   ocean.addEventListener('error', () => {
     hero.classList.add('has-image-error');

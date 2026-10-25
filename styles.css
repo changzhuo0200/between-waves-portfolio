@@ -110,11 +110,10 @@ img { display: block; max-width: 100%; }
 
 .enter-zone { position: absolute; z-index: 110; left: 3.2vw; bottom: 14.5vh; display: flex; align-items: center; gap: 1.35rem; }
 .enter-button { position: relative; width: clamp(3.4rem,4.6vw,5rem); aspect-ratio: 1; display: grid; place-items: center; border: 1px solid rgba(244,234,223,.72); border-radius: 50%; background: rgba(244,234,223,.15); box-shadow:inset 0 0 0 1px rgba(255,255,255,.04); cursor: pointer; transition: transform .58s var(--ease), background .48s ease, border-color .48s ease, box-shadow .48s ease; }
-.enter-button::before { content: ""; position:absolute; left:50%; top:50%; width:1.15rem; height:1px; background:var(--paper); transform:translate(-57%,-50%); transition:transform .55s var(--ease),width .55s var(--ease); }
-.enter-button::after { content: ""; position:absolute; left:calc(50% + .34rem); top:50%; width:.44rem; height:.44rem; border-top:1px solid var(--paper); border-right:1px solid var(--paper); transform:translate(-50%,-50%) rotate(45deg); transition:transform .55s var(--ease); }
+.enter-button::before { content: ""; position:absolute; left:50%; top:50%; width:.42rem; aspect-ratio:1; border-radius:50%; background:var(--paper); box-shadow:0 0 0 .42rem rgba(244,234,223,.05); transform:translate(-50%,-50%); transition:transform .55s var(--ease),background .45s ease,box-shadow .45s ease; }
+.enter-button::after { content: none; }
 .hero.is-exploded .enter-button { background:rgba(2,13,23,.9); border-color:rgba(255,174,119,.92); box-shadow:0 0 0 5px rgba(255,132,73,.08),inset 0 0 20px rgba(11,45,66,.66); }
-.hero.is-exploded .enter-button::before { width:1.45rem; transform:translate(-52%,-50%); }
-.hero.is-exploded .enter-button::after { transform:translate(-30%,-50%) rotate(45deg); }
+.hero.is-exploded .enter-button::before { background:var(--warm); box-shadow:0 0 0 .55rem rgba(255,174,119,.08),0 0 18px rgba(255,174,119,.4); transform:translate(-50%,-50%) scale(.86); }
 .enter-button:hover, .enter-button:focus-visible { transform: scale(1.08); background: rgba(255,139,73,.1); border-color: rgba(255,224,196,.92); }
 .enter-label { display: flex; align-items: center; gap: 1rem; color:rgba(244,234,223,.76); font-size: .62rem; letter-spacing: .28em; transition:color .45s ease; }
 .enter-label::after { content: ""; width: 2.8rem; height: 1px; background: rgba(244,234,223,.54); transition: width .45s var(--ease); }
@@ -122,7 +121,7 @@ img { display: block; max-width: 100%; }
 .hero.is-exploded .enter-label{color:var(--paper)}
 .hero.is-exploded .enter-label::after{width:4.5rem;background:linear-gradient(90deg,rgba(255,174,119,.9),transparent)}
 .explore-link { position: absolute; z-index: 110; left: 3.2vw; bottom: 6.8vh; padding: 0 0 1rem; background: transparent; font-size: .58rem; letter-spacing: .27em; cursor: pointer; }
-.explore-link::after { content: "↓"; position: absolute; left: .2rem; top: 1.5rem; color:rgba(255,239,220,.9); font-size: 1rem; animation: arrow-drift 3.4s ease-in-out infinite; }
+.explore-link::after { content: none; }
 .scroll-note { position: absolute; z-index: 70; right: 3vw; bottom: 7vh; margin: 0; font-size: .58rem; letter-spacing: .26em; }
 .scroll-note::after { content: ""; display: block; width: 10.5rem; height: 1px; margin-top: .75rem; background: linear-gradient(90deg,transparent,rgba(244,234,223,.7)); animation: line-scan 4s ease-in-out infinite; }
 .mode-note { position: absolute; z-index: 80; left: 50%; bottom: 3.3vh; margin: 0; color: rgba(244,234,223,.58); font-size: .48rem; letter-spacing: .22em; transform: translateX(-50%) translateY(.8rem); opacity: 0; transition: opacity .5s ease, transform .7s var(--ease); }
@@ -183,7 +182,6 @@ img { display: block; max-width: 100%; }
 @keyframes disc-shimmer { to { transform: rotate(360deg); } }
 @keyframes label-spin { to { transform:rotate(360deg); } }
 @keyframes reflection-pulse { to { opacity: .92; transform: scaleY(.62) rotate(-2deg) translateX(1.5%); } }
-@keyframes arrow-drift { 50% { transform: translateY(.35rem); opacity: .55; } }
 @keyframes line-scan { 0%,100% { opacity: .32; transform: scaleX(.75); transform-origin: right; } 50% { opacity: .9; transform: scaleX(1); } }
 
 @media (max-width: 1180px) {
