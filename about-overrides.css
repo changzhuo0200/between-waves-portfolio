@@ -70,20 +70,58 @@
   top:50%;
   width:min(72%,31rem);
   aspect-ratio:1;
+  isolation:isolate;
+  overflow:hidden;
   border-radius:50%;
   background:
-    repeating-radial-gradient(circle,transparent 0 5px,rgba(7,26,42,.13) 6px,transparent 7px 10px),
-    radial-gradient(circle at 34% 28%,rgba(255,255,255,.72),rgba(226,183,145,.7) 34%,rgba(120,169,190,.72) 76%,rgba(7,26,42,.68));
-  box-shadow:0 32px 70px rgba(7,26,42,.28),inset 0 0 42px rgba(255,255,255,.25);
+    repeating-radial-gradient(circle at 50% 50%,transparent 0 3px,rgba(215,229,235,.055) 4px,rgba(0,0,0,.24) 5px,transparent 7px),
+    radial-gradient(circle at 34% 27%,rgba(118,162,180,.24),transparent 26%),
+    radial-gradient(circle at 66% 72%,rgba(153,69,40,.2),transparent 31%),
+    conic-gradient(from 218deg,#02070c 0deg,#122130 32deg,#050a10 76deg,#172536 112deg,#03070b 158deg,#1d2832 202deg,#05090e 248deg,#192b3a 292deg,#02070c 360deg);
+  box-shadow:
+    0 35px 72px rgba(7,18,29,.38),
+    12px 12px 24px rgba(139,66,39,.12),
+    inset 0 0 0 1px rgba(220,232,236,.12),
+    inset 0 0 52px rgba(0,0,0,.7);
   transform:translateY(-50%) rotate(8deg);
+  animation:credits-vinyl-spin 20s linear infinite;
+  will-change:transform;
+}
+
+.credits-vinyl::before{
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:0;
+  border-radius:inherit;
+  background:
+    conic-gradient(from 18deg,transparent 0 8%,rgba(147,204,222,.22) 12%,transparent 18% 45%,rgba(208,116,70,.18) 50%,transparent 57% 78%,rgba(226,239,242,.12) 83%,transparent 90%),
+    linear-gradient(118deg,transparent 28%,rgba(255,255,255,.08) 47%,transparent 64%);
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+
+.credits-vinyl::after{
+  content:"";
+  position:absolute;
+  z-index:4;
+  left:50%;
+  top:50%;
+  width:2.3%;
+  aspect-ratio:1;
+  border-radius:50%;
+  background:#05080b;
+  box-shadow:0 0 0 1px rgba(235,227,213,.38),0 1px 4px rgba(0,0,0,.75);
+  transform:translate(-50%,-50%);
 }
 
 .credits-vinyl>span{
   position:absolute;
+  z-index:2;
   inset:34%;
   overflow:hidden;
   border-radius:50%;
-  box-shadow:0 0 0 1px rgba(7,26,42,.25);
+  box-shadow:0 0 0 1px rgba(226,235,238,.2),0 0 20px rgba(0,0,0,.48);
 }
 
 .credits-opening .credits-vinyl img{
@@ -93,6 +131,17 @@
   filter:saturate(.8) contrast(.95);
   box-shadow:none;
   transform:none;
+}
+
+@keyframes credits-vinyl-spin{
+  to{transform:translateY(-50%) rotate(368deg)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .credits-vinyl{
+    animation:none;
+    transform:translateY(-50%) rotate(8deg);
+  }
 }
 
 @media(max-width:760px){
