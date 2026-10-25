@@ -29,9 +29,10 @@ window.BETWEEN_WAVES_PROJECTS = Object.freeze({
     { type: 'gallery', eyebrow: 'MATERIAL', title: '课件切片', items: [{ src: 'assets/projects/a04/course-page.jpg', alt: 'A04 课程材料切片' }] },
     { type: 'reflection', eyebrow: 'LISTENING NOTE', title: '共同完成的分析', body: '好的引导不是替学生命名，而是陪他找到更准确的表达。' },
   ] },
-  b02: { role: '产品构想 · 交互原型 · 数据伦理', intro: '我把数据正义的问题转成一个学生可以看见、理解并控制教育数据的产品原型。', blocks: [
+  b02: { role: '产品构想 · 交互原型 · 数据伦理', intro: '把数据正义的问题转成一个学生可以看见、理解并控制教育数据的产品原型。', blocks: [
     { type: 'text', eyebrow: 'CONTEXT', title: '数据属于谁', body: ['项目从学生在教育数据系统中的被动位置开始。'] },
     { type: 'image', eyebrow: 'PRIMARY WORK', title: 'My Data Wallet', src: 'assets/projects/b02/case-canvas.png', alt: 'My Data Wallet 在在线考试场景中的应用', caption: '从 Canvas 在线考试场景进入学生数据被收集的问题。', link: { href: 'https://mydatawalletishere.netlify.app/', label: '查看可交互原型' } },
+    { type: 'process', eyebrow: 'SIGN IN', title: '登录与验证', steps: ['输入以 @edu.com 或 @uni.uk.ac 结尾的教育机构邮箱。', '设置密码并完成验证后登录。'] },
     { type: 'process', eyebrow: 'PRODUCT LOGIC', title: '把权利做成交互', steps: ['看见数据来源。', '理解使用目的。', '决定授权范围。', '保留撤回与追踪记录。'] },
     { type: 'text', eyebrow: 'DECISION', title: '不把透明等同于更多文字', body: ['信息需要在决策发生的时刻出现。'] },
     { type: 'gallery', eyebrow: 'INTERFACE', title: '界面证据', body: ['真实场景、授权选择、集体治理与产品边界被放在同一条使用路径中。'], items: [
@@ -40,7 +41,7 @@ window.BETWEEN_WAVES_PROJECTS = Object.freeze({
       { src: 'assets/projects/b02/wallet-proposal.png', alt: 'My Data Wallet 钱包与提案界面', caption: '数据收益进入个人钱包，也能用于发起新的提案。' },
       { src: 'assets/projects/b02/limits.png', alt: 'My Data Wallet 原型限制说明', caption: '原型主动呈现制度协作、数字素养与技术边界。' },
     ], link: { href: 'https://mydatawalletishere.netlify.app/', label: '打开 My Data Wallet' } },
-    { type: 'reflection', eyebrow: 'LISTENING NOTE', title: '从批判到产品', body: '原型让我看见：把数据正义变成可用的教育科技产品，需要同时面对制度协作、数字素养与技术边界。理想可以成为起点，但落地需要更多现实条件。' },
+    { type: 'reflection', eyebrow: 'LISTENING NOTE', title: '从批判到产品', body: '把数据正义变成可用的教育科技产品，需要同时面对制度协作、数字素养与技术边界。理想可以成为起点，但落地需要更多现实条件。' },
   ] },
   bt01: { role: '内容策略 · 工具设计 · 工作流', intro: '当选题判断开始重复出现，我把经验整理成可以继续使用和修改的工具。', blocks: [
     { type: 'text', eyebrow: 'CONTEXT', title: '把重复判断留下来', body: ['工具来自真实内容工作，而不是先有功能再寻找场景。'] },

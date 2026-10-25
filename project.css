@@ -116,3 +116,28 @@ body{background:radial-gradient(circle at 80% 18%,rgba(182,154,124,.08),transpar
   .booklet-spread--image .booklet-spread__copy h2,
   .booklet-spread--gallery .booklet-spread__copy h2{font-size:clamp(2.4rem,12vw,4rem)}
 }
+
+/* B02 is information-dense: compact its editorial spreads so the product path reads continuously. */
+body[data-project="b02"] .project-main{padding-top:clamp(3.5rem,6vw,6rem)}
+body[data-project="b02"] .project-spreads{margin-top:clamp(2.8rem,5vw,4.5rem)}
+body[data-project="b02"] .booklet-spread:not(.booklet-spread--video):not(.booklet-spread--image):not(.booklet-spread--gallery){
+  min-height:clamp(20rem,40vh,28rem);
+}
+body[data-project="b02"] .booklet-spread:not(.booklet-spread--image):not(.booklet-spread--gallery) .booklet-spread__copy,
+body[data-project="b02"] .booklet-spread:not(.booklet-spread--image):not(.booklet-spread--gallery) .booklet-spread__media{padding:clamp(1.7rem,3vw,3rem)}
+body[data-project="b02"] .booklet-spread:not(.booklet-spread--image):not(.booklet-spread--gallery) .booklet-spread__copy{gap:clamp(1.35rem,3vh,2.5rem)}
+body[data-project="b02"] .booklet-spread--text h2,
+body[data-project="b02"] .booklet-spread--process h2,
+body[data-project="b02"] .booklet-spread--reflection h2{font-size:clamp(2.25rem,3.8vw,4.2rem)}
+body[data-project="b02"] .booklet-spread--image,
+body[data-project="b02"] .booklet-spread--gallery{padding-block:clamp(2.2rem,4vw,4rem)}
+body[data-project="b02"] .booklet-spread--reflection .booklet-spread__media>p{max-width:34rem}
+
+@media(max-width:760px){
+  body[data-project="b02"] .project-main{padding-top:5rem}
+  body[data-project="b02"] .booklet-spread:not(.booklet-spread--video):not(.booklet-spread--image):not(.booklet-spread--gallery){min-height:0}
+  body[data-project="b02"] .booklet-spread:not(.booklet-spread--image):not(.booklet-spread--gallery) .booklet-spread__copy,
+  body[data-project="b02"] .booklet-spread:not(.booklet-spread--image):not(.booklet-spread--gallery) .booklet-spread__media{padding:1.8rem 0}
+  body[data-project="b02"] .booklet-spread--image,
+  body[data-project="b02"] .booklet-spread--gallery{padding-block:2rem}
+}

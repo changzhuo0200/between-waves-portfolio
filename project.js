@@ -5,6 +5,7 @@
   const track = tracks[index];
   const project = window.BETWEEN_WAVES_PROJECTS[id];
   if (!track || !project || track.id === 'b01') { location.replace(track?.href ?? 'works.html'); return; }
+  document.body.dataset.project = id;
 
   const element = (tag, className, text) => {
     const node = document.createElement(tag);
