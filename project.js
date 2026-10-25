@@ -39,7 +39,8 @@
     const image = element('img');
     image.src = block.src;
     image.alt = block.alt || '';
-    image.loading = 'eager';
+    image.loading = 'lazy';
+    image.decoding = 'async';
     image.addEventListener('error', () => { figure.classList.add('has-media-error'); image.hidden = true; });
     figure.append(image, element('p', 'media-fallback', '图像暂时无法载入。'), createCaption(block.caption));
     return figure;
@@ -55,7 +56,7 @@
     const video = element('video');
     video.controls = true;
     video.playsInline = true;
-    video.preload = 'metadata';
+    video.preload = 'none';
     video.poster = block.poster;
     video.setAttribute('aria-label', block.title);
     const source = element('source');
@@ -64,7 +65,16 @@
     source.addEventListener('error', () => figure.classList.add('has-media-error'));
     video.append(source);
     figure.append(video, element('p', 'media-fallback', '视频暂时无法载入，请稍后重试。'), createCaption(block.caption));
-    section.querySelector('.booklet-spread__media').append(figure);
+    const media = section.querySelector('.booklet-spread__media');
+    media.append(figure);
+    if (block.bilibili) {
+      const fallback = element('a', 'video-fallback-link', 'B 站备用观看 ↗');
+      fallback.href = block.bilibili;
+      fallback.target = '_blank';
+      fallback.rel = 'noopener noreferrer';
+      fallback.setAttribute('aria-label', `在 B 站观看：${block.title}`);
+      media.append(fallback);
+    }
     return section;
   };
   const renderImageSpread = (block) => {

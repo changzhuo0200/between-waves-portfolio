@@ -1,14 +1,14 @@
 window.BETWEEN_WAVES_PROJECTS = Object.freeze({
   a01: { role: '策划 · 剪辑 · 叙事节奏', intro: '这支影像从一次周年纪念开始。保留、发现、珍藏玩家与角色共同走过的时间。', blocks: [
     { type: 'text', eyebrow: 'OPENING NOTE', title: '《今 -明日世界が終わっても》', body: ['即便今夜，世界即将终结。', '我从“继续向前”而不是“告别”进入这支片子。', '素材选择围绕同行、失去与再次确认彼此展开。'] },
-    { type: 'video', eyebrow: 'PRIMARY WORK', title: '爱如初见，热血沸腾', src: 'assets/videos/a01-main-public.m4v', poster: 'assets/projects/a01/video-poster.jpg', caption: '2024 · 游戏音乐影像 · 本地播放' },
+    { type: 'video', eyebrow: 'PRIMARY WORK', title: '爱如初见，热血沸腾', src: 'assets/videos/a01-main-fast.m4v', poster: 'assets/projects/a01/video-poster-fast.jpg', bilibili: 'https://www.bilibili.com/video/BV1YxbTegEQ8/', caption: '2024 · 游戏音乐影像 · 本地播放' },
     { type: 'process', eyebrow: 'EDITING NOTE', title: '把纪念感压进两分钟', steps: ['先确定情绪弧线，按关系变化重排剧情素材。', '让音乐转折成为剪辑节点，而不是逐句对应歌词。', '减少解释性字幕，把理解空间还给画面。'] },
     { type: 'image', eyebrow: 'ARCHIVE FRAGMENT', title: '最初的作品集记录', src: 'assets/projects/a01/portfolio-page.jpg', alt: 'A01 早期作品集页面节选', caption: '旧页面作为档案证据出现，不作为整页主体' },
-    { type: 'video', eyebrow: 'RELATED CUT', title: '夏彦生日 · Ditto', src: 'assets/videos/a01-related-public.m4v', poster: 'assets/projects/a01/ditto-poster.jpg', caption: '同一时期对角色记忆与陪伴的另一种剪辑，追求更加细水长流的感情羁绊。' },
+    { type: 'video', eyebrow: 'RELATED CUT', title: '夏彦生日 · Ditto', src: 'assets/videos/a01-related-fast.m4v', poster: 'assets/projects/a01/ditto-poster-fast.jpg', bilibili: 'https://www.bilibili.com/video/BV1wYi2YeEcH/', caption: '同一时期对角色记忆与陪伴的另一种剪辑，追求更加细水长流的感情羁绊。' },
   ] },
   a02: { role: '策划 · 剪辑 · 角色叙事', intro: '我想把祁煜故事里爱、失控与互相牵引的感觉，压缩进一段短而完整的情绪张力中。', blocks: [
     { type: 'text', eyebrow: 'OPENING NOTE', title: 'Don’t Blame Me', body: ['一段从吸引走向失控的主观感受。'] },
-    { type: 'video', eyebrow: 'PRIMARY WORK', title: 'Don’t Blame Me', src: 'assets/videos/a02-main-web.m4v', poster: 'assets/projects/a02/video-poster.jpg', caption: '2024 · 游戏音乐影像 · 本地播放' },
+    { type: 'video', eyebrow: 'PRIMARY WORK', title: 'Don’t Blame Me', src: 'assets/videos/a02-main-fast.m4v', poster: 'assets/projects/a02/video-poster-fast.jpg', bilibili: 'https://www.bilibili.com/video/BV1UwSaYvEuz/', caption: '2024 · 游戏音乐影像 · 本地播放' },
     { type: 'process', eyebrow: 'RHYTHM', title: '五十四秒的关系曲线', steps: ['用最短镜头建立角色吸引力。', '在节拍加速时增加动作与视线的冲突。', '结尾保留未被解释的停顿。'] },
     { type: 'image', eyebrow: 'ARCHIVE FRAGMENT', title: '早期呈现', src: 'assets/projects/a02/portfolio-page.jpg', alt: 'A02 早期作品集页面节选', caption: '作为过程档案重新裁切进入歌词本。' },
     { type: 'text', eyebrow: 'DECISION', title: '不再追加延伸剪辑', body: ['短片也需要完整呼吸。即使时长很短，观众仍然需要进入、转折与离开的时间。'] },

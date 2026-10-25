@@ -6,8 +6,11 @@
   <meta name="theme-color" content="#03101c">
   <meta name="description" content="BETWEEN WAVES — 行于浪间，Carnell Chang Zhuo 的个人作品档案。">
   <title>BETWEEN WAVES — 行于浪间</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" as="image" href="assets/home/ocean-fast.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/home/sleeve-fast.jpg" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css?v=20261025-4">
   <link rel="stylesheet" href="mobile-menu.css">
+  <link rel="stylesheet" href="page-motion.css?v=20261025-1">
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳至主要内容</a>
@@ -20,7 +23,7 @@
 
   <main id="main-content">
     <section class="hero" id="home" data-state="idle" aria-labelledby="hero-title">
-      <img class="ocean" src="assets/ocean-background-clean-v2.png" alt="暗蓝海面与橙色夕光">
+      <img class="ocean" src="assets/home/ocean-fast.jpg" width="1672" height="941" fetchpriority="high" decoding="async" alt="暗蓝海面与橙色夕光">
       <div class="vignette" aria-hidden="true"></div>
       <div class="warm-field" aria-hidden="true"></div>
       <div class="cursor-light" aria-hidden="true"></div>
@@ -61,25 +64,25 @@
           <div class="product-reflection" aria-hidden="true"></div>
 
           <div class="object-button archive-card" aria-hidden="true">
-            <img src="assets/poster-card-v3.png" alt="海面摄影档案卡">
+            <img src="assets/home/a01-video-cover.jpg" width="1200" height="900" loading="lazy" decoding="async" fetchpriority="low" alt="未定事件簿周年纪念影像封面">
           </div>
-          <button class="object-button liner-card" type="button" data-target="about" data-label="CR · CREDITS" aria-label="打开创作档案与关于">
-            <img src="assets/poster-card-v3.png" alt="BETWEEN WAVES 创作档案卡">
+          <button class="object-button liner-card" type="button" data-target="lyrics" data-label="A03 · CULTURAL ANALYSIS" aria-label="打开游戏文化分析作品">
+            <img src="assets/home/a03-cultural-analysis.jpg" width="1200" height="675" loading="lazy" decoding="async" fetchpriority="low" alt="游戏中的中式文化审美与输出作品封面">
           </button>
-          <button class="object-button poster-card" type="button" data-target="bonus" data-label="BT · BONUS TRACKS" aria-label="打开附加曲目">
-            <img src="assets/poster-card-v3.png" alt="BETWEEN WAVES 海面海报卡">
+          <button class="object-button poster-card" type="button" data-target="sideA" data-label="A02 · VIDEO WORK" aria-label="打开视频作品曲目">
+            <img src="assets/home/a02-video-cover.jpg" width="1200" height="900" loading="lazy" decoding="async" fetchpriority="low" alt="Don’t Blame Me 视频作品封面">
           </button>
           <button class="object-button lyrics-booklet" type="button" data-target="lyrics" data-label="LN · LINER NOTES" aria-label="打开歌词本与创作笔记">
-            <img src="assets/lyrics-booklet-v3.png" alt="展开的 BETWEEN WAVES 歌词本">
+            <img src="assets/home/lyrics-booklet-fast.jpg" width="1536" height="1024" loading="lazy" decoding="async" fetchpriority="low" alt="展开的 BETWEEN WAVES 歌词本">
           </button>
 
           <button class="object-button vinyl" type="button" data-target="sideA" data-label="SIDE A / SIDE B" aria-label="进入唱片曲目">
-            <span class="vinyl-label"><img src="assets/vinyl-label-art-v4.png" alt="BETWEEN WAVES 唱片中心标签"></span>
+            <span class="vinyl-label"><img src="assets/home/vinyl-label-fast.jpg" width="1254" height="1254" decoding="async" alt="BETWEEN WAVES 唱片中心标签"></span>
           </button>
 
           <button class="object-button sleeve" type="button" data-target="works" data-label="SELECTED WORKS · EDITION 01" aria-label="进入完整作品曲目">
             <span class="sleeve-edge" aria-hidden="true"></span>
-            <span class="sleeve-face"><img src="assets/sleeve-cover-art-v3.png" alt="BETWEEN WAVES 封套正面"></span>
+            <span class="sleeve-face"><img src="assets/home/sleeve-fast.jpg" width="1254" height="1254" fetchpriority="high" decoding="async" alt="BETWEEN WAVES 封套正面"></span>
           </button>
         </div>
       </div>
@@ -88,7 +91,7 @@
         <button class="enter-button" type="button" aria-label="点击进入卓畅的作品集"></button>
         <span class="enter-label">点击进入卓畅的作品集</span>
       </div>
-      <button class="explore-link" type="button">EXPLORE THE RECORD</button>
+      <button class="explore-link" type="button" aria-pressed="false">EXPLORE THE RECORD</button>
       <p class="scroll-note">SELECT TO EXPLORE</p>
       <p class="mode-note">SELECT AN OBJECT TO ENTER ITS ARCHIVE</p>
       <p class="image-fallback" role="status" hidden>视觉素材未能载入，请确认 assets 文件夹与 HTML 位于同一目录。</p>
@@ -96,7 +99,8 @@
 
   </main>
   <script src="site-data.js?v=20261024-2"></script>
-  <script src="interactions.js?v=20261024-2"></script>
+  <script src="interactions.js?v=20261025-4"></script>
   <script src="mobile-menu.js"></script>
+  <script src="page-motion.js?v=20261025-1"></script>
 </body>
 </html>

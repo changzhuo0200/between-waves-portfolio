@@ -19,6 +19,9 @@
   let raf = 0;
   let transitionLock = false;
 
+  hero.classList.add('is-booting');
+  requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.remove('is-booting')));
+
   const render = () => {
     currentX += (targetX - currentX) * .065;
     currentY += (targetY - currentY) * .065;
@@ -60,6 +63,7 @@
     hero.classList.toggle('is-exploded', open);
     enterLabel.textContent = '点击进入卓畅的作品集';
     exploreButton.textContent = open ? 'CLOSE THE RECORD' : 'EXPLORE THE RECORD';
+    exploreButton.setAttribute('aria-pressed', String(open));
     setRecordOpen(open, false);
     hero.dataset.state = open ? 'exploded' : 'idle';
   };
@@ -73,7 +77,7 @@
     button.classList.add('is-active');
     hero.dataset.state = `focusing-${target}`;
 
-    const focusDelay = reduced.matches ? 0 : 180;
+    const focusDelay = reduced.matches ? 0 : 140;
     window.setTimeout(() => {
       hero.classList.add('is-leaving');
       hero.dataset.destination = target;
@@ -82,7 +86,7 @@
 
     window.setTimeout(() => {
       location.href = PAGE_TARGETS[target];
-    }, focusDelay + (reduced.matches ? 20 : 620));
+    }, focusDelay + (reduced.matches ? 20 : 520));
   };
 
   const toggleExploded = () => {
@@ -97,6 +101,16 @@
   accessoryButtons.forEach((button) => button.addEventListener('click', () => {
     focusAndNavigate(button, button.dataset.target, true);
   }));
+
+  objectButtons.forEach((button) => button.addEventListener('pointerenter', () => {
+    const href = PAGE_TARGETS[button.dataset.target];
+    if (!href || document.head.querySelector(`link[data-prefetch="${button.dataset.target}"]`)) return;
+    const prefetch = document.createElement('link');
+    prefetch.rel = 'prefetch';
+    prefetch.href = href;
+    prefetch.dataset.prefetch = button.dataset.target;
+    document.head.append(prefetch);
+  }, { once: true }));
 
   document.querySelectorAll('[data-page-link]').forEach((link) => {
     link.addEventListener('click', (event) => {
