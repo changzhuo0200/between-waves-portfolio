@@ -2,11 +2,19 @@
   const audio = document.querySelector('[data-credits-audio]');
   const toggle = document.querySelector('[data-audio-toggle]');
   const state = document.querySelector('[data-audio-state]');
-  if (!audio || !toggle || !state) return;
+  const title = document.querySelector('[data-audio-title]');
+  if (!audio || !toggle || !state || !title) return;
 
-  const targetVolume = 0.12;
+  const tracks = [
+    { title: '浓雾', src: 'assets/audio/congwu-the-ballad.m4a' },
+    { title: '岁铃有歌', src: 'assets/audio/suiling-youge.ogg' },
+    { title: '绮梦夏日', src: 'assets/audio/qimeng-xiari.ogg' },
+  ];
+  const targetVolume = 0.45;
   let fadeFrame = 0;
   let shouldResume = false;
+  let currentTrack = Math.floor(Math.random() * tracks.length);
+  const unavailableTracks = new Set();
 
   const formatTime = (seconds) => {
     const value = Number.isFinite(seconds) ? Math.max(0, seconds) : 0;
@@ -15,8 +23,10 @@
   };
 
   const setState = (playing) => {
+    const track = tracks[currentTrack];
     toggle.setAttribute('aria-pressed', String(playing));
-    toggle.setAttribute('aria-label', `${playing ? '暂停' : '播放'}背景音乐《浓雾》`);
+    toggle.setAttribute('aria-label', `${playing ? '暂停' : '播放'}背景音乐《${track.title}》`);
+    title.textContent = track.title;
     state.textContent = playing ? `playing … ${formatTime(audio.currentTime)}` : 'paused · tap to play';
   };
 
@@ -32,6 +42,21 @@
       else onComplete?.();
     };
     fadeFrame = requestAnimationFrame(frame);
+  };
+
+  const chooseNextTrack = () => {
+    const candidates = tracks
+      .map((_, index) => index)
+      .filter((index) => index !== currentTrack && !unavailableTracks.has(index));
+    if (!candidates.length) return null;
+    return candidates[Math.floor(Math.random() * candidates.length)];
+  };
+
+  const loadTrack = (index) => {
+    currentTrack = index;
+    audio.src = tracks[index].src;
+    audio.load();
+    setState(false);
   };
 
   const play = async () => {
@@ -64,6 +89,22 @@
   });
   audio.addEventListener('play', () => setState(true));
   audio.addEventListener('pause', () => setState(false));
+  audio.addEventListener('ended', () => {
+    const nextTrack = chooseNextTrack();
+    if (nextTrack === null) return;
+    loadTrack(nextTrack);
+    play();
+  });
+  audio.addEventListener('error', () => {
+    unavailableTracks.add(currentTrack);
+    const nextTrack = chooseNextTrack();
+    if (nextTrack === null) {
+      state.textContent = 'audio unavailable';
+      return;
+    }
+    loadTrack(nextTrack);
+    play();
+  });
 
   const startAfterFirstInteraction = (event) => {
     if (event.target.closest?.('[data-audio-toggle]')) return;
@@ -82,6 +123,6 @@
     }
   });
 
-  setState(false);
+  loadTrack(currentTrack);
   play();
 })();

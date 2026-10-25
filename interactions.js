@@ -65,6 +65,7 @@
     exploreButton.setAttribute('aria-pressed', String(open));
     setRecordOpen(open, false);
     hero.dataset.state = open ? 'exploded' : 'idle';
+    dispatchEvent(new CustomEvent('betweenwaves:recordstate', { detail: { open } }));
   };
 
   const focusAndNavigate = (button, target, expandFirst = true) => {
