@@ -56,9 +56,19 @@
     const video = element('video');
     video.controls = true;
     video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
     video.preload = 'none';
     video.poster = block.poster;
     video.setAttribute('aria-label', block.title);
+    if (block.mobileSrc) {
+      const mobileSource = element('source');
+      mobileSource.src = block.mobileSrc;
+      mobileSource.type = 'video/mp4';
+      mobileSource.media = '(max-width: 700px)';
+      mobileSource.addEventListener('error', () => figure.classList.add('has-media-error'));
+      video.append(mobileSource);
+    }
     const source = element('source');
     source.src = block.src;
     source.type = 'video/mp4';
@@ -68,7 +78,7 @@
     const media = section.querySelector('.booklet-spread__media');
     media.append(figure);
     if (block.bilibili) {
-      media.append(element('p', 'video-quality-note', '由于流畅度考虑，站内视频使用较低清晰度预览；可点击 B 站链接观看 1080P 版本。'));
+      media.append(element('p', 'video-quality-note', '电脑端保留高清本地视频；手机端为保证流畅播放使用轻量预览。可点击 B 站链接观看 1080P 版本。'));
       const fallback = element('a', 'video-fallback-link', '前往 B 站观看 1080P ↗');
       fallback.href = block.bilibili;
       fallback.target = '_blank';

@@ -16,11 +16,30 @@
   let shoreDepth;
   let musicFadeFrame = 0;
   let positionRestored = false;
+  let resumedFromPreviousPage = false;
+
+  const readSavedPosition = () => {
+    const raw = sessionStorage.getItem(positionKey);
+    if (!raw) return null;
+    try {
+      const saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object' && Number.isFinite(Number(saved.time))) return saved;
+      if (Number.isFinite(Number(saved))) return { time: Number(saved), at: 0, active: false };
+    } catch {
+      const legacyTime = Number(raw);
+      if (Number.isFinite(legacyTime)) return { time: legacyTime, at: 0, active: false };
+    }
+    return null;
+  };
 
   const restoreMusicPosition = () => {
     if (positionRestored || !Number.isFinite(music.duration) || music.duration <= 0) return;
-    const saved = Number(sessionStorage.getItem(positionKey));
-    if (Number.isFinite(saved) && saved > 0) music.currentTime = saved % music.duration;
+    const saved = readSavedPosition();
+    if (saved && Number(saved.time) > 0) {
+      const elapsed = saved.active && Number(saved.at) > 0 ? Math.min(10, Math.max(0, (Date.now() - Number(saved.at)) / 1000)) : 0;
+      music.currentTime = (Number(saved.time) + elapsed) % music.duration;
+      resumedFromPreviousPage = true;
+    }
     positionRestored = true;
   };
 
@@ -32,9 +51,9 @@
     });
   };
 
-  const saveMusicPosition = () => {
+  const saveMusicPosition = (active = !music.paused && !muted) => {
     if (!positionRestored || !Number.isFinite(music.currentTime)) return;
-    sessionStorage.setItem(positionKey, String(music.currentTime));
+    sessionStorage.setItem(positionKey, JSON.stringify({ time: music.currentTime, at: Date.now(), active: Boolean(active) }));
   };
 
   const updateToggle = () => {
@@ -124,10 +143,11 @@
     waveDepth.gain.setValueAtTime(waveDepth.gain.value, now);
     shoreGain.gain.setValueAtTime(shoreGain.gain.value, now);
     shoreDepth.gain.setValueAtTime(shoreDepth.gain.value, now);
-    waveGain.gain.linearRampToValueAtTime(active ? .045 : 0, now + 1.6);
-    waveDepth.gain.linearRampToValueAtTime(active ? .015 : 0, now + 1.6);
-    shoreGain.gain.linearRampToValueAtTime(active ? .018 : 0, now + 1.6);
-    shoreDepth.gain.linearRampToValueAtTime(active ? .012 : 0, now + 1.6);
+    const transition = active ? .55 : .45;
+    waveGain.gain.linearRampToValueAtTime(active ? .045 : 0, now + transition);
+    waveDepth.gain.linearRampToValueAtTime(active ? .015 : 0, now + transition);
+    shoreGain.gain.linearRampToValueAtTime(active ? .018 : 0, now + transition);
+    shoreDepth.gain.linearRampToValueAtTime(active ? .012 : 0, now + transition);
   };
 
   const fadeMusicTo = (volume, duration = 1200, pauseAfter = false) => {
@@ -147,10 +167,10 @@
   const playMusic = async () => {
     await waitForMetadata();
     restoreMusicPosition();
-    music.volume = 0;
+    music.volume = resumedFromPreviousPage ? musicVolume : 0;
     try {
       await music.play();
-      fadeMusicTo(musicVolume, 1500);
+      if (!resumedFromPreviousPage) fadeMusicTo(musicVolume, 1100);
     } catch {
       updateToggle();
     }
@@ -174,6 +194,7 @@
   toggle.addEventListener('click', () => {
     muted = !muted;
     localStorage.setItem(storageKey, String(muted));
+    if (muted) saveMusicPosition(false);
     activateMode();
   });
 
@@ -198,8 +219,11 @@
   });
 
   music.addEventListener('loadedmetadata', restoreMusicPosition, { once: true });
-  music.addEventListener('timeupdate', saveMusicPosition);
-  addEventListener('pagehide', saveMusicPosition);
+  music.addEventListener('timeupdate', () => saveMusicPosition(!music.paused && !muted));
+  document.addEventListener('pointerdown', (event) => {
+    if (event.target.closest?.('a[href]')) saveMusicPosition(!muted);
+  }, { capture: true, passive: true });
+  addEventListener('pagehide', () => saveMusicPosition(!muted));
 
   updateToggle();
   activateMode();

@@ -13,19 +13,38 @@
   let shoreDepth;
   let musicFadeFrame = 0;
   let positionRestored = false;
+  let resumedFromPreviousPage = false;
 
   const music = document.createElement('audio');
   music.src = 'assets/audio/ninkiggia-message.mp3';
   music.loop = true;
-  music.preload = 'metadata';
+  music.preload = 'auto';
   music.playsInline = true;
   music.hidden = true;
   document.body.append(music);
 
+  const readSavedPosition = () => {
+    const raw = sessionStorage.getItem(positionKey);
+    if (!raw) return null;
+    try {
+      const saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object' && Number.isFinite(Number(saved.time))) return saved;
+      if (Number.isFinite(Number(saved))) return { time: Number(saved), at: 0, active: false };
+    } catch {
+      const legacyTime = Number(raw);
+      if (Number.isFinite(legacyTime)) return { time: legacyTime, at: 0, active: false };
+    }
+    return null;
+  };
+
   const restoreMusicPosition = () => {
     if (positionRestored || !Number.isFinite(music.duration) || music.duration <= 0) return;
-    const saved = Number(sessionStorage.getItem(positionKey));
-    if (Number.isFinite(saved) && saved > 0) music.currentTime = saved % music.duration;
+    const saved = readSavedPosition();
+    if (saved && Number(saved.time) > 0) {
+      const elapsed = saved.active && Number(saved.at) > 0 ? Math.min(10, Math.max(0, (Date.now() - Number(saved.at)) / 1000)) : 0;
+      music.currentTime = (Number(saved.time) + elapsed) % music.duration;
+      resumedFromPreviousPage = true;
+    }
     positionRestored = true;
   };
 
@@ -37,9 +56,9 @@
     });
   };
 
-  const saveMusicPosition = () => {
+  const saveMusicPosition = (active = !music.paused && !muted && !videoActive) => {
     if (!positionRestored || !Number.isFinite(music.currentTime)) return;
-    sessionStorage.setItem(positionKey, String(music.currentTime));
+    sessionStorage.setItem(positionKey, JSON.stringify({ time: music.currentTime, at: Date.now(), active: Boolean(active) }));
   };
 
   const toggle = document.createElement('button');
@@ -145,10 +164,10 @@
     }
     await waitForMetadata();
     restoreMusicPosition();
-    music.volume = 0;
+    music.volume = resumedFromPreviousPage ? musicVolume : 0;
     try {
       await music.play();
-      fadeMusicTo(musicVolume, 1500);
+      if (!resumedFromPreviousPage) fadeMusicTo(musicVolume, 1100);
     } catch {
       // Browsers may wait for the first user gesture; the shared listeners retry.
     }
@@ -168,7 +187,7 @@
     targets.forEach(([parameter, value]) => {
       parameter.cancelScheduledValues(now);
       parameter.setValueAtTime(parameter.value, now);
-      parameter.linearRampToValueAtTime(value, now + (active ? 1.6 : .45));
+      parameter.linearRampToValueAtTime(value, now + (active ? .55 : .45));
     });
   };
 
@@ -183,6 +202,7 @@
   toggle.addEventListener('click', () => {
     muted = !muted;
     localStorage.setItem(storageKey, String(muted));
+    if (muted) saveMusicPosition(false);
     activate();
   });
 
@@ -197,12 +217,16 @@
     else if (!muted) activate();
   });
   music.addEventListener('loadedmetadata', restoreMusicPosition, { once: true });
-  music.addEventListener('timeupdate', saveMusicPosition);
-  addEventListener('pagehide', saveMusicPosition);
+  music.addEventListener('timeupdate', () => saveMusicPosition(!music.paused && !muted && !videoActive));
+  document.addEventListener('pointerdown', (event) => {
+    if (event.target.closest?.('a[href]')) saveMusicPosition(!muted && !videoActive);
+  }, { capture: true, passive: true });
+  addEventListener('pagehide', () => saveMusicPosition(!muted && !videoActive));
 
   document.addEventListener('play', (event) => {
     if (event.target instanceof HTMLVideoElement) {
       videoActive = true;
+      saveMusicPosition(false);
       activate();
     }
   }, true);

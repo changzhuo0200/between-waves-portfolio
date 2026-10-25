@@ -21,6 +21,7 @@
   let shouldResume = false;
   let userPaused = localStorage.getItem(storageKey) === 'true';
   let positionRestored = false;
+  let resumedFromPreviousPage = false;
   const unavailableTracks = new Set();
 
   const currentTrack = () => mode === 'continuation' ? continuationTrack : creditsTracks[currentCreditTrack];
@@ -43,16 +44,34 @@
     updateModeButtons();
   };
 
+  const readSavedPosition = () => {
+    const raw = sessionStorage.getItem(positionKey);
+    if (!raw) return null;
+    try {
+      const saved = JSON.parse(raw);
+      if (saved && typeof saved === 'object' && Number.isFinite(Number(saved.time))) return saved;
+      if (Number.isFinite(Number(saved))) return { time: Number(saved), at: 0, active: false };
+    } catch {
+      const legacyTime = Number(raw);
+      if (Number.isFinite(legacyTime)) return { time: legacyTime, at: 0, active: false };
+    }
+    return null;
+  };
+
   const restoreContinuationPosition = () => {
     if (mode !== 'continuation' || positionRestored || !Number.isFinite(audio.duration) || audio.duration <= 0) return;
-    const saved = Number(sessionStorage.getItem(positionKey));
-    if (Number.isFinite(saved) && saved > 0) audio.currentTime = saved % audio.duration;
+    const saved = readSavedPosition();
+    if (saved && Number(saved.time) > 0) {
+      const elapsed = saved.active && Number(saved.at) > 0 ? Math.min(10, Math.max(0, (Date.now() - Number(saved.at)) / 1000)) : 0;
+      audio.currentTime = (Number(saved.time) + elapsed) % audio.duration;
+      resumedFromPreviousPage = true;
+    }
     positionRestored = true;
   };
 
-  const saveContinuationPosition = () => {
+  const saveContinuationPosition = (active = !audio.paused && !userPaused) => {
     if (mode !== 'continuation' || !positionRestored || !Number.isFinite(audio.currentTime)) return;
-    sessionStorage.setItem(positionKey, String(audio.currentTime));
+    sessionStorage.setItem(positionKey, JSON.stringify({ time: audio.currentTime, at: Date.now(), active: Boolean(active) }));
   };
 
   const waitForMetadata = () => {
@@ -81,6 +100,7 @@
     audio.loop = mode === 'continuation';
     audio.src = currentTrack().src;
     positionRestored = false;
+    resumedFromPreviousPage = false;
     audio.load();
     setState(false);
   };
@@ -89,11 +109,11 @@
     if (!audio.paused) return;
     await waitForMetadata();
     restoreContinuationPosition();
-    audio.volume = 0;
+    audio.volume = resumedFromPreviousPage ? targetVolume : 0;
     try {
       await audio.play();
       setState(true);
-      fadeTo(targetVolume, 1400);
+      if (!resumedFromPreviousPage) fadeTo(targetVolume, 1100);
     } catch {
       setState(false);
     }
@@ -118,7 +138,7 @@
       play();
       return;
     }
-    saveContinuationPosition();
+    saveContinuationPosition(false);
     pause(() => {
       mode = nextMode;
       if (mode === 'credits') currentCreditTrack = 0;
@@ -136,14 +156,14 @@
     } else {
       userPaused = true;
       localStorage.setItem(storageKey, 'true');
-      saveContinuationPosition();
+      saveContinuationPosition(false);
       pause();
     }
   });
 
   audio.addEventListener('loadedmetadata', restoreContinuationPosition);
   audio.addEventListener('timeupdate', () => {
-    saveContinuationPosition();
+    saveContinuationPosition(!audio.paused && !userPaused);
     if (!audio.paused) state.textContent = `playing … ${formatTime(audio.currentTime)}`;
   });
   audio.addEventListener('play', () => setState(true));
@@ -181,7 +201,10 @@
   };
   addEventListener('pointerdown', startAfterFirstInteraction, { once: true, passive: true });
   addEventListener('keydown', startAfterFirstInteraction, { once: true });
-  addEventListener('pagehide', saveContinuationPosition);
+  document.addEventListener('pointerdown', (event) => {
+    if (event.target.closest?.('a[href]')) saveContinuationPosition(!userPaused);
+  }, { capture: true, passive: true });
+  addEventListener('pagehide', () => saveContinuationPosition(!userPaused));
   addEventListener('pageshow', () => {
     if (!userPaused && audio.paused) play();
   });
