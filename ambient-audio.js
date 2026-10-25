@@ -2,6 +2,7 @@
   if (document.querySelector('[data-ambient-audio-toggle]')) return;
 
   const storageKey = 'between-waves-sound-muted';
+  const positionKey = 'between-waves-ninkiggia-position';
   const musicVolume = 0.35;
   let muted = localStorage.getItem(storageKey) === 'true';
   let videoActive = false;
@@ -11,6 +12,7 @@
   let shoreGain;
   let shoreDepth;
   let musicFadeFrame = 0;
+  let positionRestored = false;
 
   const music = document.createElement('audio');
   music.src = 'assets/audio/ninkiggia-message.mp3';
@@ -19,6 +21,26 @@
   music.playsInline = true;
   music.hidden = true;
   document.body.append(music);
+
+  const restoreMusicPosition = () => {
+    if (positionRestored || !Number.isFinite(music.duration) || music.duration <= 0) return;
+    const saved = Number(sessionStorage.getItem(positionKey));
+    if (Number.isFinite(saved) && saved > 0) music.currentTime = saved % music.duration;
+    positionRestored = true;
+  };
+
+  const waitForMetadata = () => {
+    if (music.readyState >= 1) return Promise.resolve();
+    return new Promise((resolve) => {
+      music.addEventListener('loadedmetadata', resolve, { once: true });
+      music.addEventListener('error', resolve, { once: true });
+    });
+  };
+
+  const saveMusicPosition = () => {
+    if (!positionRestored || !Number.isFinite(music.currentTime)) return;
+    sessionStorage.setItem(positionKey, String(music.currentTime));
+  };
 
   const toggle = document.createElement('button');
   toggle.type = 'button';
@@ -121,6 +143,8 @@
       fadeMusicTo(musicVolume, 1000);
       return;
     }
+    await waitForMetadata();
+    restoreMusicPosition();
     music.volume = 0;
     try {
       await music.play();
@@ -172,6 +196,9 @@
     }
     else if (!muted) activate();
   });
+  music.addEventListener('loadedmetadata', restoreMusicPosition, { once: true });
+  music.addEventListener('timeupdate', saveMusicPosition);
+  addEventListener('pagehide', saveMusicPosition);
 
   document.addEventListener('play', (event) => {
     if (event.target instanceof HTMLVideoElement) {

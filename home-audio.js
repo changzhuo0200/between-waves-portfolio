@@ -7,6 +7,7 @@
 
   const musicVolume = 0.35;
   const storageKey = 'between-waves-sound-muted';
+  const positionKey = 'between-waves-ninkiggia-position';
   let muted = localStorage.getItem(storageKey) === 'true';
   let context;
   let waveGain;
@@ -14,6 +15,27 @@
   let shoreGain;
   let shoreDepth;
   let musicFadeFrame = 0;
+  let positionRestored = false;
+
+  const restoreMusicPosition = () => {
+    if (positionRestored || !Number.isFinite(music.duration) || music.duration <= 0) return;
+    const saved = Number(sessionStorage.getItem(positionKey));
+    if (Number.isFinite(saved) && saved > 0) music.currentTime = saved % music.duration;
+    positionRestored = true;
+  };
+
+  const waitForMetadata = () => {
+    if (music.readyState >= 1) return Promise.resolve();
+    return new Promise((resolve) => {
+      music.addEventListener('loadedmetadata', resolve, { once: true });
+      music.addEventListener('error', resolve, { once: true });
+    });
+  };
+
+  const saveMusicPosition = () => {
+    if (!positionRestored || !Number.isFinite(music.currentTime)) return;
+    sessionStorage.setItem(positionKey, String(music.currentTime));
+  };
 
   const updateToggle = () => {
     toggle.setAttribute('aria-pressed', String(!muted));
@@ -123,6 +145,8 @@
   };
 
   const playMusic = async () => {
+    await waitForMetadata();
+    restoreMusicPosition();
     music.volume = 0;
     try {
       await music.play();
@@ -172,6 +196,10 @@
       activateMode();
     }
   });
+
+  music.addEventListener('loadedmetadata', restoreMusicPosition, { once: true });
+  music.addEventListener('timeupdate', saveMusicPosition);
+  addEventListener('pagehide', saveMusicPosition);
 
   updateToggle();
   activateMode();

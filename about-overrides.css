@@ -159,6 +159,37 @@
   transition:background .35s ease,color .35s ease,border-color .35s ease,transform .35s ease;
 }
 
+.credits-audio-choice{
+  position:absolute;
+  z-index:5;
+  right:2%;
+  bottom:15%;
+  display:flex;
+  padding:.25rem;
+  border:1px solid rgba(7,26,42,.2);
+  border-radius:999px;
+  background:rgba(234,220,201,.74);
+  box-shadow:0 10px 24px rgba(7,26,42,.09);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+.credits-audio-choice button{
+  min-height:2rem;
+  padding:.55rem .8rem;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:rgba(7,26,42,.62);
+  cursor:pointer;
+  font:600 .55rem/1 Inter,"Helvetica Neue",Arial,sans-serif;
+  letter-spacing:.08em;
+  transition:background .3s ease,color .3s ease;
+}
+
+.credits-audio-choice button[aria-pressed="true"]{background:rgba(7,26,42,.9);color:var(--paper)}
+.credits-audio-choice button:focus-visible{outline:1px solid var(--ink);outline-offset:2px}
+
 .credits-now-playing:hover,
 .credits-now-playing:focus-visible{transform:translateY(-2px);border-color:rgba(7,26,42,.55)}
 .credits-now-playing[aria-pressed="true"]{background:rgba(7,26,42,.9);color:var(--paper);border-color:rgba(234,220,201,.34)}
@@ -211,4 +242,5 @@
   .credits-opening .credits-sleeve{width:70%}
   .credits-vinyl{width:70%}
   .credits-now-playing{right:0;bottom:1rem}
+  .credits-audio-choice{right:0;bottom:4.4rem}
 }
