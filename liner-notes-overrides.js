@@ -197,6 +197,11 @@
   }
 
   function applyContentUpdates() {
+    const a04Finding = qs("#a04-finding blockquote");
+    if (a04Finding) {
+      a04Finding.textContent = "我希望让孩子能获得一种在游戏中持续观察分析的方法和视角";
+    }
+
     updateFigure(qs("#a03-world .editorial-figure"), {
       src: "assets/liner-notes/a03-cover.jpg",
       alt: "浅谈游戏中的中式文化审美与输出作品首页",

@@ -58,6 +58,9 @@
   left:0;
   top:50%;
   width:min(73%,29rem);
+  height:auto!important;
+  aspect-ratio:1 / 1;
+  object-fit:cover;
   max-width:none;
   margin:0;
   transform:translateY(-50%) rotate(-1.6deg);

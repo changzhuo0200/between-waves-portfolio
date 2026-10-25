@@ -97,13 +97,21 @@
   };
   const renderProcessSpread = (block) => {
     const section = createSpread('process', block);
+    const media = section.querySelector('.booklet-spread__media');
+    addBody(media, block.body);
     const list = element('ol', 'process-list');
     block.steps.forEach((step, stepIndex) => {
       const item = element('li');
-      item.append(element('b', '', String(stepIndex + 1).padStart(2, '0')), element('p', '', step));
+      const content = element('div', 'process-list__content');
+      if (typeof step === 'string') {
+        content.append(element('p', '', step));
+      } else {
+        content.append(element('h3', '', step.title), element('p', '', step.body));
+      }
+      item.append(element('b', '', String(stepIndex + 1).padStart(2, '0')), content);
       list.append(item);
     });
-    section.querySelector('.booklet-spread__media').append(list);
+    media.append(list);
     return section;
   };
   const renderReflectionSpread = (block) => {

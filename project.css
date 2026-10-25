@@ -35,6 +35,12 @@ body{background:radial-gradient(circle at 80% 18%,rgba(182,154,124,.08),transpar
 .booklet-figure img{width:auto;max-width:100%;height:auto;max-height:74vh;margin-inline:auto;object-fit:contain}
 .booklet-gallery img{width:auto;max-width:100%;height:auto;max-height:74vh;aspect-ratio:auto;object-fit:contain}
 .process-list p{font-size:.98rem;line-height:1.72;letter-spacing:.015em}
+.booklet-spread--process .booklet-spread__media>p{margin:0 0 clamp(1.5rem,3vw,2.6rem)}
+.process-list__content{display:grid;gap:.45rem}
+.process-list__content h3{margin:0;color:var(--paper);font:400 clamp(1.05rem,1.35vw,1.3rem)/1.35 "Songti SC",STSong,serif;letter-spacing:.04em}
+.process-list__content p{margin:0;color:var(--dim)}
+body[data-project="a01"] .booklet-spread--process{min-height:clamp(34rem,68vh,48rem)}
+body[data-project="a01"] .booklet-spread--process .process-list li{padding:1.05rem 0}
 
 @media(max-width:960px){
   .project-heading{grid-template-columns:1fr}
@@ -55,6 +61,7 @@ body{background:radial-gradient(circle at 80% 18%,rgba(182,154,124,.08),transpar
   .booklet-spread h2{max-width:none;font-size:clamp(2.4rem,12vw,4rem);line-height:1.06}
   .booklet-spread__media>p{font-size:1rem;line-height:1.75}
   .booklet-figure img,.booklet-gallery img{max-height:none}
+  body[data-project="a01"] .booklet-spread--process{min-height:0}
 }
 
 /* Image-led spreads use the page width instead of shrinking evidence into a side column. */
