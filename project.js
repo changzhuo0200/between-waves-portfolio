@@ -68,7 +68,8 @@
     const media = section.querySelector('.booklet-spread__media');
     media.append(figure);
     if (block.bilibili) {
-      const fallback = element('a', 'video-fallback-link', 'B 站备用观看 ↗');
+      media.append(element('p', 'video-quality-note', '由于流畅度考虑，站内视频使用较低清晰度预览；可点击 B 站链接观看 1080P 版本。'));
+      const fallback = element('a', 'video-fallback-link', '前往 B 站观看 1080P ↗');
       fallback.href = block.bilibili;
       fallback.target = '_blank';
       fallback.rel = 'noopener noreferrer';

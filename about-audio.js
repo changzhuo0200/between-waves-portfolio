@@ -7,13 +7,14 @@
 
   const tracks = [
     { title: '浓雾', src: 'assets/audio/congwu-the-ballad.m4a' },
-    { title: '岁铃有歌', src: 'assets/audio/suiling-youge.ogg' },
-    { title: '绮梦夏日', src: 'assets/audio/qimeng-xiari.ogg' },
+    { title: '岁铃有歌', src: 'assets/audio/suiling-youge.mp3' },
+    { title: '绮梦夏日', src: 'assets/audio/qimeng-xiari.mp3' },
   ];
-  const targetVolume = 0.45;
+  const storageKey = 'between-waves-sound-muted';
+  const targetVolume = 0.35;
   let fadeFrame = 0;
   let shouldResume = false;
-  let userPaused = false;
+  let userPaused = localStorage.getItem(storageKey) === 'true';
   let currentTrack = Math.floor(Math.random() * tracks.length);
   const unavailableTracks = new Set();
 
@@ -83,9 +84,11 @@
   toggle.addEventListener('click', () => {
     if (audio.paused) {
       userPaused = false;
+      localStorage.setItem(storageKey, 'false');
       play();
     } else {
       userPaused = true;
+      localStorage.setItem(storageKey, 'true');
       pause();
     }
   });
@@ -137,5 +140,5 @@
 
   audio.autoplay = true;
   loadTrack(currentTrack);
-  play();
+  if (!userPaused) play();
 })();

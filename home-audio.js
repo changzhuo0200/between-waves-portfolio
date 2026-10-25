@@ -6,8 +6,8 @@
   if (!hero || !music || !toggle || !label) return;
 
   const musicVolume = 0.35;
-  let muted = false;
-  let mode = hero.classList.contains('is-exploded') ? 'music' : 'waves';
+  const storageKey = 'between-waves-sound-muted';
+  let muted = localStorage.getItem(storageKey) === 'true';
   let context;
   let waveGain;
   let waveDepth;
@@ -16,10 +16,9 @@
   let musicFadeFrame = 0;
 
   const updateToggle = () => {
-    const activeLabel = mode === 'music' ? '望月者的心愿' : '岸边轻浪';
     toggle.setAttribute('aria-pressed', String(!muted));
     toggle.setAttribute('aria-label', muted ? '恢复背景声音' : '关闭背景声音');
-    label.textContent = muted ? 'SOUND OFF' : `${activeLabel} · 35%`;
+    label.textContent = muted ? 'SOUND OFF' : '望月者 + 轻浪 · 35% / 15%';
   };
 
   const createOcean = () => {
@@ -64,7 +63,7 @@
     shoreFilter.type = 'bandpass';
     shoreFilter.frequency.value = 880;
     shoreFilter.Q.value = .6;
-    master.gain.value = .35;
+    master.gain.value = .15;
     compressor.threshold.value = -28;
     compressor.knee.value = 24;
     compressor.ratio.value = 4;
@@ -141,25 +140,20 @@
       return;
     }
 
-    if (mode === 'waves') {
-      const audioContext = createOcean();
-      if (audioContext?.state === 'suspended') await audioContext.resume().catch(() => {});
-      setOceanLevel(true);
-      if (!music.paused) fadeMusicTo(0, 900, true);
-    } else {
-      setOceanLevel(false);
-      if (music.paused) playMusic();
-      else fadeMusicTo(musicVolume, 1200);
-    }
+    const audioContext = createOcean();
+    if (audioContext?.state === 'suspended') audioContext.resume().catch(() => {});
+    setOceanLevel(true);
+    if (music.paused) playMusic();
+    else fadeMusicTo(musicVolume, 1200);
   };
 
   toggle.addEventListener('click', () => {
     muted = !muted;
+    localStorage.setItem(storageKey, String(muted));
     activateMode();
   });
 
   addEventListener('betweenwaves:recordstate', (event) => {
-    mode = event.detail?.open ? 'music' : 'waves';
     activateMode();
   });
 
