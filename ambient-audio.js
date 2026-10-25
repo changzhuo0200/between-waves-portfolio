@@ -1,4 +1,5 @@
 (() => {
+  if (window.__BW_PERSISTENT_AUDIO__) return;
   if (document.querySelector('[data-ambient-audio-toggle]')) return;
 
   const storageKey = 'between-waves-sound-muted';

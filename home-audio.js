@@ -1,4 +1,5 @@
 (() => {
+  if (window.__BW_PERSISTENT_AUDIO__) return;
   const hero = document.querySelector('.hero');
   const music = document.querySelector('[data-home-music]');
   const toggle = document.querySelector('[data-home-audio-toggle]');

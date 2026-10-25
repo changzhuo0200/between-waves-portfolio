@@ -1,4 +1,5 @@
 (() => {
+  if (window.__BW_PERSISTENT_AUDIO__) return;
   const audio = document.querySelector('[data-credits-audio]');
   const toggle = document.querySelector('[data-audio-toggle]');
   const state = document.querySelector('[data-audio-state]');
