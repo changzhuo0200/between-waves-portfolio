@@ -336,6 +336,7 @@ main { display: block; }
   font: 400 16px/1 var(--display);
   letter-spacing: 0.12em;
   transition: color 200ms ease;
+  cursor: pointer;
 }
 
 .project-rail a::after {
@@ -556,6 +557,162 @@ main { display: block; }
   color: var(--cream);
   text-decoration: none;
   border-bottom: 1px solid var(--orange);
+}
+
+/* A03 / A04 use one Chinese editorial type system throughout. */
+.project-section {
+  --cn-display: "STZhongsong", "华文中宋", "Songti SC", STSong, serif;
+  --cn-reading: "Songti SC", STSong, "Noto Serif CJK SC", serif;
+}
+
+.project-title-group h2,
+.section-copy h3,
+.prose-block h3,
+.finding-block blockquote,
+.full-work-copy h3 {
+  font-family: var(--cn-display);
+  font-weight: 400;
+}
+
+.project-summary,
+.project-intro li,
+.section-copy > p,
+.reading-copy,
+.finding-block > p,
+.editorial-figure figcaption,
+.full-work-copy > p {
+  font-family: var(--cn-reading);
+  font-weight: 400;
+}
+
+.media-preview-trigger,
+.full-work-toggle,
+.full-work-download {
+  appearance: none;
+  border: 0;
+  border-bottom: 1px solid var(--orange);
+  padding: 0 0 8px;
+  color: var(--cream);
+  background: transparent;
+  font: inherit;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.media-preview-trigger { flex: 0 0 auto; }
+
+.media-preview-trigger:hover,
+.media-preview-trigger:focus-visible,
+.full-work-toggle:hover,
+.full-work-toggle:focus-visible,
+.full-work-download:hover,
+.full-work-download:focus-visible {
+  color: var(--orange);
+  outline: none;
+}
+
+.has-open-dialog { overflow: hidden; }
+
+.media-lightbox {
+  width: min(1180px, calc(100vw - 40px));
+  max-width: none;
+  max-height: calc(100vh - 40px);
+  border: 1px solid rgba(239, 232, 220, 0.28);
+  padding: 0;
+  color: var(--cream);
+  background: #04111d;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.72);
+}
+
+.media-lightbox::backdrop { background: rgba(0, 5, 10, 0.88); }
+
+.media-lightbox__frame {
+  position: relative;
+  display: grid;
+  gap: 14px;
+  padding: 54px 18px 18px;
+}
+
+.media-lightbox__frame img {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 150px);
+  object-fit: contain;
+}
+
+.media-lightbox__frame p {
+  margin: 0;
+  color: var(--muted);
+  font: 15px/1.7 var(--cn-reading, "Songti SC", STSong, serif);
+  text-align: center;
+}
+
+.media-lightbox__close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  border: 0;
+  padding: 6px 0;
+  color: var(--cream);
+  background: transparent;
+  font: 11px/1.2 var(--sans);
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}
+
+.full-work-block {
+  border-block: 1px solid rgba(239, 232, 220, 0.2);
+  padding-block: clamp(54px, 7vw, 88px);
+}
+
+.full-work-copy {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.35fr) minmax(0, 1fr);
+  gap: 22px clamp(36px, 7vw, 100px);
+  align-items: start;
+}
+
+.full-work-copy .section-kicker { grid-row: 1 / span 2; }
+
+.full-work-copy h3 {
+  margin: 0;
+  color: var(--cream);
+  font-size: clamp(36px, 4.2vw, 60px);
+  line-height: 1.16;
+  letter-spacing: -0.03em;
+}
+
+.full-work-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.full-work-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px 34px;
+  margin: 34px 0 0 max(206px, calc(35% - 2px));
+}
+
+.full-work-viewer {
+  scroll-margin-top: 150px;
+  margin-top: 36px;
+  border: 1px solid rgba(239, 232, 220, 0.2);
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.full-work-viewer[hidden] { display: none; }
+
+.full-work-viewer iframe {
+  display: block;
+  width: 100%;
+  height: min(78vh, 920px);
+  border: 0;
+  background: #f4f1eb;
 }
 
 .figure-grid {
@@ -937,4 +1094,49 @@ main { display: block; }
 @media(max-width:680px){
   .project-body{gap:76px;padding-top:72px}
   .project-section{padding-block:68px}
+
+  .editorial-figure figcaption {
+    display: grid;
+    gap: 14px;
+  }
+
+  .media-preview-trigger { justify-self: start; }
+
+  .media-lightbox {
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+  }
+
+  .media-lightbox__frame { padding: 48px 10px 12px; }
+  .media-lightbox__frame img { max-height: calc(100vh - 130px); }
+
+  .full-work-block { padding: 48px 8px; }
+
+  .full-work-copy {
+    display: block;
+  }
+
+  .full-work-copy h3 {
+    margin-top: 20px;
+    font-size: 36px;
+    line-height: 1.18;
+  }
+
+  .full-work-copy p {
+    margin-top: 22px;
+    font-size: 16px;
+  }
+
+  .full-work-actions {
+    display: grid;
+    justify-items: start;
+    margin: 30px 0 0;
+  }
+
+  .full-work-viewer {
+    margin-inline: -8px;
+    padding: 5px;
+  }
+
+  .full-work-viewer iframe { height: 72vh; }
 }
