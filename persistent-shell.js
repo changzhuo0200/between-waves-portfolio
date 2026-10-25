@@ -263,28 +263,44 @@
     document.body.append(frame);
     document.body.style.overflow = 'hidden';
     let firstLoad = true;
-    frame.addEventListener('load', () => {
+    let boundDocument = null;
+    const bindFrameContent = () => {
       let childDocument;
       let childURL;
       try {
         childDocument = frame.contentDocument;
         childURL = new URL(frame.contentWindow.location.href);
       } catch {
-        location.href = target.href;
         return;
       }
+      if (!childDocument?.body || childURL.protocol === 'about:' || childURL.origin !== location.origin) return;
       activeFrame = frame;
       activeDocument = childDocument;
       document.title = childDocument.title || document.title;
       bindDocument(childDocument, childURL);
+      boundDocument = childDocument;
+      const visible = `${childURL.pathname}${childURL.search}${childURL.hash}`;
+      const current = `${location.pathname}${location.search}${location.hash}`;
+      if (visible !== current) history.pushState({ betweenWavesShell: true }, '', visible);
+    };
+    const monitor = setInterval(() => {
+      if (!frame.isConnected) {
+        clearInterval(monitor);
+        return;
+      }
+      try {
+        if (frame.contentDocument !== boundDocument) bindFrameContent();
+      } catch {
+        clearInterval(monitor);
+      }
+    }, 90);
+    frame.addEventListener('load', () => {
+      bindFrameContent();
       if (firstLoad) {
         requestAnimationFrame(() => { frame.style.opacity = '1'; });
         if (previousFrame && previousFrame !== frame) setTimeout(() => previousFrame.remove(), 420);
         firstLoad = false;
       }
-      const visible = `${childURL.pathname}${childURL.search}${childURL.hash}`;
-      const current = `${location.pathname}${location.search}${location.hash}`;
-      if (visible !== current) history.pushState({ betweenWavesShell: true }, '', visible);
       frame.contentWindow.focus();
     });
   };
@@ -313,19 +329,20 @@
         switchMode(button.dataset.audioMode);
       });
     });
-    doc.querySelectorAll('video').forEach((video) => {
-      if (video.dataset.persistentBound) return;
-      video.dataset.persistentBound = 'true';
-      video.addEventListener('play', () => { videoActive = true; pause(); });
-      const release = () => {
+    if (!doc.documentElement.dataset.persistentNavigationBound) {
+      doc.documentElement.dataset.persistentNavigationBound = 'true';
+      doc.addEventListener('play', (event) => {
+        if (!(event.target instanceof doc.defaultView.HTMLVideoElement)) return;
+        videoActive = true;
+        pause();
+      }, true);
+      const releaseVideo = (event) => {
+        if (!(event.target instanceof doc.defaultView.HTMLVideoElement)) return;
         videoActive = [...doc.querySelectorAll('video')].some((item) => !item.paused && !item.ended);
         if (!videoActive && !muted) play();
       };
-      video.addEventListener('pause', release);
-      video.addEventListener('ended', release);
-    });
-    if (!doc.documentElement.dataset.persistentNavigationBound) {
-      doc.documentElement.dataset.persistentNavigationBound = 'true';
+      doc.addEventListener('pause', releaseVideo, true);
+      doc.addEventListener('ended', releaseVideo, true);
       doc.addEventListener('click', (event) => {
         if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         const anchor = event.target.closest?.('a[href]');
