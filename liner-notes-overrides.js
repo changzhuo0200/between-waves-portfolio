@@ -6,13 +6,11 @@
       title: "游戏中的中式文化审美与输出",
       description: "完整浏览 39 页文化研究与公开分享作品。",
       pdf: "assets/liner-notes/a03-cultural-aesthetics.pdf",
-      filename: "A03-游戏中的中式文化审美与输出.pdf",
     },
     a04: {
       title: "从玩游戏的人，到分析游戏的人",
       description: "完整浏览 18 页一对一游戏质性分析课程大纲。",
       pdf: "assets/liner-notes/a04-course-outline.pdf",
-      filename: "A04-游戏质性分析课程大纲.pdf",
     },
   };
 
@@ -113,7 +111,6 @@
     header.className = "full-work-copy";
     header.innerHTML = `
       <span class="section-kicker">FULL WORK / 完整作品</span>
-      <h3>${asset.title}</h3>
       <p>${asset.description}</p>
     `;
 
@@ -125,15 +122,9 @@
     toggle.className = "full-work-toggle";
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-controls", `${projectId}-viewer`);
-    toggle.textContent = "在本页浏览完整作品 ↓";
+    toggle.textContent = "在本页浏览完整版 PDF / PPT ↓";
 
-    const download = document.createElement("a");
-    download.className = "full-work-download";
-    download.href = asset.pdf;
-    download.download = asset.filename;
-    download.textContent = "下载 PDF";
-
-    actions.append(toggle, download);
+    actions.append(toggle);
 
     const viewer = document.createElement("div");
     viewer.className = "full-work-viewer";
@@ -150,7 +141,7 @@
       const shouldOpen = viewer.hidden;
       viewer.hidden = !shouldOpen;
       toggle.setAttribute("aria-expanded", String(shouldOpen));
-      toggle.textContent = shouldOpen ? "收起完整作品 ↑" : "在本页浏览完整作品 ↓";
+      toggle.textContent = shouldOpen ? "收起完整版 ↑" : "在本页浏览完整版 PDF / PPT ↓";
       if (shouldOpen && !iframe.src) iframe.src = iframe.dataset.src;
       if (shouldOpen) requestAnimationFrame(() => viewer.scrollIntoView({ behavior: "smooth", block: "start" }));
     });
@@ -163,7 +154,9 @@
     Object.entries(projectAssets).forEach(([projectId, asset]) => {
       const body = qs(`#${projectId} .project-body`);
       if (!body || qs(`#${projectId}-full-work`)) return;
-      body.append(createFullWorkSection(projectId, asset));
+      const evidence = qs(`#${projectId} .evidence-block`);
+      if (evidence) evidence.insertAdjacentElement("afterend", createFullWorkSection(projectId, asset));
+      else body.append(createFullWorkSection(projectId, asset));
     });
   }
 
@@ -219,10 +212,17 @@
     });
 
     updateFigure(qs("#a04-process .figure-2"), {
-      src: "assets/liner-notes/course-overview-detail.jpg",
-      alt: "课程目标、三维分析框架与课堂约定细节",
-      caption: "课程内容细节：从游戏机制、文化符号到参与式受众分析。",
-      previewLabel: "页面内查看高清细节 ↗",
+      src: "assets/liner-notes/a04-course-case.jpg",
+      alt: "课程大纲中的游戏空间与文化符号分析案例",
+      caption: "课程案例页：用《赛博朋克 2077》与《原神》练习空间、符号与文化语境分析。",
+      previewLabel: "页面内查看课程案例 ↗",
+    });
+
+    updateFigure(qs("#a03-output .figure-2"), {
+      src: "assets/liner-notes/a03-animation-production.jpg",
+      alt: "游戏文化表达中的动画制作案例页",
+      caption: "媒介延伸：动画制作把文化意象转化为运动、声音与情绪节奏。",
+      previewLabel: "页面内查看动画案例 ↗",
     });
   }
 
