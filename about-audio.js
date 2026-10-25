@@ -13,6 +13,7 @@
   const targetVolume = 0.45;
   let fadeFrame = 0;
   let shouldResume = false;
+  let userPaused = false;
   let currentTrack = Math.floor(Math.random() * tracks.length);
   const unavailableTracks = new Set();
 
@@ -80,8 +81,13 @@
   };
 
   toggle.addEventListener('click', () => {
-    if (audio.paused) play();
-    else pause();
+    if (audio.paused) {
+      userPaused = false;
+      play();
+    } else {
+      userPaused = true;
+      pause();
+    }
   });
 
   audio.addEventListener('timeupdate', () => {
@@ -89,6 +95,9 @@
   });
   audio.addEventListener('play', () => setState(true));
   audio.addEventListener('pause', () => setState(false));
+  audio.addEventListener('canplay', () => {
+    if (!userPaused && audio.paused) play();
+  });
   audio.addEventListener('ended', () => {
     const nextTrack = chooseNextTrack();
     if (nextTrack === null) return;
@@ -112,17 +121,21 @@
   };
   window.addEventListener('pointerdown', startAfterFirstInteraction, { once: true, passive: true });
   window.addEventListener('keydown', startAfterFirstInteraction, { once: true });
+  window.addEventListener('pageshow', () => {
+    if (!userPaused && audio.paused) play();
+  });
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       shouldResume = !audio.paused;
       if (shouldResume) pause();
-    } else if (shouldResume) {
+    } else if (shouldResume && !userPaused) {
       shouldResume = false;
       play();
     }
   });
 
+  audio.autoplay = true;
   loadTrack(currentTrack);
   play();
 })();

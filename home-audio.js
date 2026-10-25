@@ -11,10 +11,12 @@
   let context;
   let waveGain;
   let waveDepth;
+  let shoreGain;
+  let shoreDepth;
   let musicFadeFrame = 0;
 
   const updateToggle = () => {
-    const activeLabel = mode === 'music' ? '望月者的心愿' : '海浪';
+    const activeLabel = mode === 'music' ? '望月者的心愿' : '岸边轻浪';
     toggle.setAttribute('aria-pressed', String(!muted));
     toggle.setAttribute('aria-label', muted ? '恢复背景声音' : '关闭背景声音');
     label.textContent = muted ? 'SOUND OFF' : `${activeLabel} · 35%`;
@@ -26,53 +28,85 @@
     if (!AudioContext) return null;
     context = new AudioContext();
 
-    const duration = 9;
+    const duration = 14;
     const buffer = context.createBuffer(2, context.sampleRate * duration, context.sampleRate);
     for (let channel = 0; channel < buffer.numberOfChannels; channel += 1) {
       const data = buffer.getChannelData(channel);
       let brown = 0;
       for (let index = 0; index < data.length; index += 1) {
         const white = Math.random() * 2 - 1;
-        brown = (brown + white * .018) / 1.018;
-        data[index] = Math.max(-1, Math.min(1, brown * 3.2));
+        brown = (brown + white * .012) / 1.012;
+        data[index] = Math.max(-1, Math.min(1, brown * 2.1));
       }
     }
 
     const source = context.createBufferSource();
+    const shoreSource = context.createBufferSource();
     const filter = context.createBiquadFilter();
+    const shoreFilter = context.createBiquadFilter();
     const master = context.createGain();
+    const compressor = context.createDynamicsCompressor();
     const swell = context.createOscillator();
+    const shoreSwell = context.createOscillator();
     waveDepth = context.createGain();
     waveGain = context.createGain();
+    shoreDepth = context.createGain();
+    shoreGain = context.createGain();
 
     source.buffer = buffer;
     source.loop = true;
+    shoreSource.buffer = buffer;
+    shoreSource.loop = true;
+    shoreSource.playbackRate.value = .97;
     filter.type = 'lowpass';
-    filter.frequency.value = 720;
-    filter.Q.value = .25;
+    filter.frequency.value = 430;
+    filter.Q.value = .18;
+    shoreFilter.type = 'bandpass';
+    shoreFilter.frequency.value = 880;
+    shoreFilter.Q.value = .6;
     master.gain.value = .35;
+    compressor.threshold.value = -28;
+    compressor.knee.value = 24;
+    compressor.ratio.value = 4;
+    compressor.attack.value = .04;
+    compressor.release.value = .55;
     waveGain.gain.value = 0;
     waveDepth.gain.value = 0;
+    shoreGain.gain.value = 0;
+    shoreDepth.gain.value = 0;
     swell.type = 'sine';
-    swell.frequency.value = .075;
+    swell.frequency.value = .052;
+    shoreSwell.type = 'sine';
+    shoreSwell.frequency.value = .14;
 
-    source.connect(filter).connect(waveGain).connect(master).connect(context.destination);
+    source.connect(filter).connect(waveGain).connect(master);
+    shoreSource.connect(shoreFilter).connect(shoreGain).connect(master);
+    master.connect(compressor).connect(context.destination);
     swell.connect(waveDepth).connect(waveGain.gain);
+    shoreSwell.connect(shoreDepth).connect(shoreGain.gain);
     source.start();
+    shoreSource.start(0, 3.4);
     swell.start();
+    shoreSwell.start();
     return context;
   };
 
   const setOceanLevel = (active) => {
     const audioContext = createOcean();
-    if (!audioContext || !waveGain || !waveDepth) return;
+    if (!audioContext || !waveGain || !waveDepth || !shoreGain || !shoreDepth) return;
     const now = audioContext.currentTime;
     waveGain.gain.cancelScheduledValues(now);
     waveDepth.gain.cancelScheduledValues(now);
+    shoreGain.gain.cancelScheduledValues(now);
+    shoreDepth.gain.cancelScheduledValues(now);
     waveGain.gain.setValueAtTime(waveGain.gain.value, now);
     waveDepth.gain.setValueAtTime(waveDepth.gain.value, now);
-    waveGain.gain.linearRampToValueAtTime(active ? .12 : 0, now + 1.25);
-    waveDepth.gain.linearRampToValueAtTime(active ? .065 : 0, now + 1.25);
+    shoreGain.gain.setValueAtTime(shoreGain.gain.value, now);
+    shoreDepth.gain.setValueAtTime(shoreDepth.gain.value, now);
+    waveGain.gain.linearRampToValueAtTime(active ? .045 : 0, now + 1.6);
+    waveDepth.gain.linearRampToValueAtTime(active ? .015 : 0, now + 1.6);
+    shoreGain.gain.linearRampToValueAtTime(active ? .018 : 0, now + 1.6);
+    shoreDepth.gain.linearRampToValueAtTime(active ? .012 : 0, now + 1.6);
   };
 
   const fadeMusicTo = (volume, duration = 1200, pauseAfter = false) => {
