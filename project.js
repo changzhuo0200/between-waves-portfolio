@@ -54,27 +54,46 @@
     const section = createSpread('video', block);
     const figure = element('figure', 'booklet-figure booklet-video');
     const video = element('video');
+    const useMobilePreview = window.matchMedia('(max-width: 700px)').matches && block.mobileSrc;
+    const selectedSource = useMobilePreview ? block.mobileSrc : block.src;
+    const fallback = element('div', 'media-fallback');
+    const fallbackText = element('p', '', '本地预览暂时无法载入，可重新加载或前往 B 站观看 1080P 版本。');
+    const retryButton = element('button', 'video-retry', '重新加载视频');
+    let automaticRetryUsed = false;
+
     video.controls = true;
     video.playsInline = true;
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
-    video.preload = 'none';
+    video.preload = 'metadata';
     video.poster = block.poster;
     video.setAttribute('aria-label', block.title);
-    if (block.mobileSrc) {
-      const mobileSource = element('source');
-      mobileSource.src = block.mobileSrc;
-      mobileSource.type = 'video/mp4';
-      mobileSource.media = '(max-width: 700px)';
-      mobileSource.addEventListener('error', () => figure.classList.add('has-media-error'));
-      video.append(mobileSource);
-    }
-    const source = element('source');
-    source.src = block.src;
-    source.type = 'video/mp4';
-    source.addEventListener('error', () => figure.classList.add('has-media-error'));
-    video.append(source);
-    figure.append(video, element('p', 'media-fallback', '视频暂时无法载入，请稍后重试。'), createCaption(block.caption));
+    video.src = selectedSource;
+
+    const clearMediaError = () => figure.classList.remove('has-media-error');
+    const reloadVideo = () => {
+      clearMediaError();
+      video.src = selectedSource;
+      video.load();
+    };
+    video.addEventListener('loadedmetadata', clearMediaError);
+    video.addEventListener('canplay', clearMediaError);
+    video.addEventListener('playing', clearMediaError);
+    video.addEventListener('error', () => {
+      if (!automaticRetryUsed) {
+        automaticRetryUsed = true;
+        window.setTimeout(reloadVideo, 700);
+        return;
+      }
+      figure.classList.add('has-media-error');
+    });
+    retryButton.type = 'button';
+    retryButton.addEventListener('click', () => {
+      automaticRetryUsed = false;
+      reloadVideo();
+    });
+    fallback.append(fallbackText, retryButton);
+    figure.append(video, fallback, createCaption(block.caption));
     const media = section.querySelector('.booklet-spread__media');
     media.append(figure);
     if (block.bilibili) {
