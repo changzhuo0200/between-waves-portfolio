@@ -16,6 +16,16 @@
 .contact-links a:hover,
 .contact-links a:focus-visible{border-color:var(--paper)}
 
+.credits-block .credits-personality{
+  max-width:34rem;
+  margin-top:2rem;
+  padding-left:1.25rem;
+  border-left:2px solid rgba(156,71,43,.72);
+  font-size:clamp(1.2rem,1.8vw,1.8rem);
+  line-height:1.55;
+  letter-spacing:.04em;
+}
+
 /* Opening composition: the introduction rests at lower left, while the
    physical record peeks out from behind the sleeve on the right. */
 .credits-opening{
