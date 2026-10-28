@@ -1,0 +1,12 @@
+{
+  "source": "ScreenRecording_10-28-2026 01-23-04_1.mov",
+  "duration": 263.621667,
+  "segments": [
+    { "id": "post-01", "title": "Hong Kong", "start": 0, "duration": 58 },
+    { "id": "post-02", "title": "National Taiwan University", "start": 58, "duration": 47 },
+    { "id": "post-03", "title": "Blue Hour in Kaohsiung", "start": 105, "duration": 43 },
+    { "id": "post-04", "title": "Catedral de Sevilla", "start": 148, "duration": 51 },
+    { "id": "post-05", "title": "Breakfast", "start": 199, "duration": 25 },
+    { "id": "post-06", "title": "Oxford", "start": 224, "duration": 39.621667 }
+  ]
+}

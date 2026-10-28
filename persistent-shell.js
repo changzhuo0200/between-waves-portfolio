@@ -26,6 +26,8 @@
   let creditIndex = 0;
   let continuationTime = 0;
   let videoActive = false;
+  let resumeAfterVideo = false;
+  let musicFadeFrame = 0;
   let started = false;
   let activeDocument = document;
   let activeFrame = null;
@@ -131,6 +133,30 @@
     });
   };
 
+  const fadeMusic = (targetVolume, duration = 420, pauseWhenSilent = false) => {
+    cancelAnimationFrame(musicFadeFrame);
+    const target = Math.max(0, Math.min(1, targetVolume));
+    const initial = Number.isFinite(audio.volume) ? audio.volume : musicVolume;
+    const startedAt = performance.now();
+    const step = (now) => {
+      const progress = Math.min(1, (now - startedAt) / Math.max(1, duration));
+      const eased = 1 - Math.pow(1 - progress, 3);
+      audio.volume = initial + (target - initial) * eased;
+      if (progress < 1) {
+        musicFadeFrame = requestAnimationFrame(step);
+      } else if (pauseWhenSilent && target === 0) {
+        audio.pause();
+      }
+    };
+    musicFadeFrame = requestAnimationFrame(step);
+  };
+
+  const pauseOtherVideos = (doc, activeVideo) => {
+    doc.querySelectorAll('video').forEach((video) => {
+      if (video !== activeVideo && !video.paused) video.pause();
+    });
+  };
+
   const updateUI = () => {
     const doc = activeDocument;
     if (!doc) return;
@@ -187,10 +213,11 @@
       updateUI();
       return;
     }
-    audio.volume = musicVolume;
+    audio.volume = Math.min(audio.volume, musicVolume);
     try {
       await audio.play();
       started = true;
+      fadeMusic(musicVolume);
     } catch {
       // Playback starts on the next user gesture when autoplay is restricted.
     }
@@ -199,6 +226,7 @@
   };
 
   const pause = () => {
+    cancelAnimationFrame(musicFadeFrame);
     if (mode === 'continuation') continuationTime = Number(audio.currentTime) || continuationTime;
     audio.pause();
     setOcean(false);
@@ -208,8 +236,15 @@
   const setMuted = (nextMuted) => {
     muted = nextMuted;
     localStorage.setItem(storageKey, String(muted));
-    if (muted) pause();
-    else play();
+    if (muted) {
+      resumeAfterVideo = false;
+      pause();
+    } else if (videoActive) {
+      resumeAfterVideo = true;
+      updateUI();
+    } else {
+      play();
+    }
   };
 
   const switchMode = (nextMode) => {
@@ -333,13 +368,23 @@
       doc.documentElement.dataset.persistentNavigationBound = 'true';
       doc.addEventListener('play', (event) => {
         if (!(event.target instanceof doc.defaultView.HTMLVideoElement)) return;
+        pauseOtherVideos(doc, event.target);
+        resumeAfterVideo = resumeAfterVideo || (!muted && !audio.paused);
         videoActive = true;
-        pause();
+        setOcean(false);
+        fadeMusic(0, 320, true);
+        updateUI();
       }, true);
       const releaseVideo = (event) => {
         if (!(event.target instanceof doc.defaultView.HTMLVideoElement)) return;
-        videoActive = [...doc.querySelectorAll('video')].some((item) => !item.paused && !item.ended);
-        if (!videoActive && !muted) play();
+        window.setTimeout(() => {
+          videoActive = [...doc.querySelectorAll('video')].some((item) => (!item.paused && !item.ended) || item.dataset.chainPending === 'true');
+          if (!videoActive && !muted && resumeAfterVideo) {
+            resumeAfterVideo = false;
+            play();
+          }
+          updateUI();
+        }, 120);
       };
       doc.addEventListener('pause', releaseVideo, true);
       doc.addEventListener('ended', releaseVideo, true);

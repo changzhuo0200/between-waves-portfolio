@@ -65,4 +65,16 @@ window.BETWEEN_WAVES_PROJECTS = Object.freeze({
     { type: 'process', eyebrow: 'REVISION', title: '二十四版如何发生', steps: ['先统一核心命题。', '重排部门材料。', '压缩重复信息。', '让口述节奏与画面节奏一致。'] },
     { type: 'text', eyebrow: 'COLLABORATION · ARCHIVE', title: '让不同声音进入同一结构', body: ['统筹不是抹平差异，而是为每部分找到必要的位置。', '二十四版不是单纯的返工记录。反复修改让我理解，完整叙事往往来自持续删减与重新排序。'] },
   ] },
+  bt03: { role: '手机摄影 · 选曲 · 日常观察', intro: '我不想让这些照片脱离自己为它们选择的音乐。于是，六个帖子仍以各自原本的声音出现。', blocks: [
+    { type: 'text', eyebrow: 'LISTENING NOTE', title: '照片与音乐一起，才是完整的帖子', body: ['这些手机摄影不是静止的图集。音乐决定了回看城市、旅行与日常时，情绪如何再次流动。', '播放任意一帖时，网站背景音乐会暂时淡出；暂停或播放结束后，它会按你原来的声音设置恢复。'] },
+    { type: 'instagram', eyebrow: 'MOBILE PHOTOGRAPHY', title: '六段手机摄影日记', length: 6, body: '选择一张封面进入对应帖子。连续播放默认关闭，避免音乐与情绪被自动推进。', posts: [
+      { title: '回忆季候风 · 香港', song: '王菲 · 季候风', src: 'assets/videos/instagram/post-01.m4v', poster: 'assets/projects/bt03/post-01.jpg', caption: 'there was something in the air' },
+      { title: '从台大一路向北', song: 'Taylor Swift · august', src: 'assets/videos/instagram/post-02.m4v', poster: 'assets/projects/bt03/post-02.jpg', caption: '一段带着夏日空气的校园与旅途记忆。' },
+      { title: 'Blue Hour in Kaohsiung', song: '原帖选曲', src: 'assets/videos/instagram/post-03.m4v', poster: 'assets/projects/bt03/post-03.jpg', caption: '听雨的声音，也听见城市进入蓝调时刻。' },
+      { title: 'Catedral de Sevilla', song: 'Taylor Swift · invisible string', src: 'assets/videos/instagram/post-04.m4v', poster: 'assets/projects/bt03/post-04.jpg', caption: '把旅途中抬头看见的天空，拼进同一条线。' },
+      { title: '煮蛋大师', song: 'Sabrina Carpenter · Taste', src: 'assets/videos/instagram/post-05.m4v', poster: 'assets/projects/bt03/post-05.jpg', caption: '早餐、餐具与日常生活里认真摆放的小快乐。' },
+      { title: 'Oxford · Dining Hall', song: 'TWICE · Alcohol-Free', src: 'assets/videos/instagram/post-06.m4v', poster: 'assets/projects/bt03/post-06.jpg', caption: '最后一场晚宴，以及属于牛津的一小段告别。' },
+    ] },
+    { type: 'reflection', eyebrow: 'BONUS NOTE', title: '让原帖保留自己的呼吸', body: '拆分不是为了把记忆切碎，而是让每个帖子都能被单独进入，也保留它原本的音乐、节奏与观看方式。' },
+  ] },
 });

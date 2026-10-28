@@ -149,7 +149,96 @@
     addBody(section.querySelector('.booklet-spread__media'), block.body);
     return section;
   };
-  const renderers = { text: renderTextSpread, video: renderVideoSpread, image: renderImageSpread, gallery: renderGallerySpread, process: renderProcessSpread, reflection: renderReflectionSpread };
+  const renderInstagramSpread = (block) => {
+    const section = createSpread('instagram', block);
+    const media = section.querySelector('.booklet-spread__media');
+    addBody(media, block.body);
+
+    const experience = element('div', 'instagram-experience');
+    const player = element('figure', 'instagram-player');
+    const video = element('video');
+    video.controls = true;
+    video.playsInline = true;
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.preload = 'metadata';
+    video.dataset.instagramPlayer = '';
+
+    const details = element('figcaption', 'instagram-player__details');
+    const counter = element('span', 'instagram-player__counter');
+    const title = element('strong', 'instagram-player__title');
+    const song = element('span', 'instagram-player__song');
+    const caption = element('p', 'instagram-player__caption');
+    details.append(counter, title, song, caption);
+    player.append(video, details);
+
+    const controls = element('div', 'instagram-playback-options');
+    const continuous = element('input');
+    continuous.type = 'checkbox';
+    continuous.id = `instagram-continuous-${id}`;
+    continuous.dataset.instagramContinuous = '';
+    const continuousLabel = element('label', '', '连续播放下一帖');
+    continuousLabel.htmlFor = continuous.id;
+    controls.append(continuous, continuousLabel, element('span', '', '默认关闭'));
+
+    const selectorList = element('ol', 'instagram-selector-list');
+    selectorList.setAttribute('aria-label', '选择手机摄影帖子');
+    const buttons = [];
+    let currentIndex = 0;
+
+    const selectPost = (nextIndex, shouldPlay = false) => {
+      const post = block.posts[nextIndex];
+      if (!post) return;
+      currentIndex = nextIndex;
+      video.pause();
+      video.src = post.src;
+      video.poster = post.poster;
+      video.setAttribute('aria-label', `${post.title}，音乐：${post.song}`);
+      video.load();
+      counter.textContent = `${String(nextIndex + 1).padStart(2, '0')} / ${String(block.posts.length).padStart(2, '0')}`;
+      title.textContent = post.title;
+      song.textContent = `♫ ${post.song}`;
+      caption.textContent = post.caption || '';
+      buttons.forEach((button, index) => {
+        const active = index === nextIndex;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', String(active));
+        if (active) button.setAttribute('aria-current', 'true');
+        else button.removeAttribute('aria-current');
+      });
+      if (shouldPlay) {
+        video.dataset.chainPending = 'true';
+        video.play().then(() => { delete video.dataset.chainPending; }).catch(() => { delete video.dataset.chainPending; });
+      }
+    };
+
+    block.posts.forEach((post, postIndex) => {
+      const item = element('li');
+      const button = element('button', 'instagram-selector');
+      button.type = 'button';
+      button.dataset.instagramSelector = String(postIndex);
+      button.setAttribute('aria-label', `播放第 ${postIndex + 1} 帖：${post.title}`);
+      const image = element('img');
+      image.src = post.poster;
+      image.alt = '';
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      button.append(image, element('span', 'instagram-selector__number', String(postIndex + 1).padStart(2, '0')), element('strong', '', post.title), element('small', '', post.song));
+      button.addEventListener('click', () => selectPost(postIndex, !video.paused && !video.ended));
+      buttons.push(button);
+      item.append(button);
+      selectorList.append(item);
+    });
+
+    video.addEventListener('ended', () => {
+      if (continuous.checked && currentIndex < block.posts.length - 1) selectPost(currentIndex + 1, true);
+    });
+    experience.append(player, controls, selectorList);
+    media.append(experience);
+    selectPost(0);
+    return section;
+  };
+  const renderers = { text: renderTextSpread, video: renderVideoSpread, image: renderImageSpread, gallery: renderGallerySpread, process: renderProcessSpread, reflection: renderReflectionSpread, instagram: renderInstagramSpread };
 
   document.title = `${track.title} — BETWEEN WAVES`;
   document.querySelector('[data-project-code]').textContent = `${track.code} · ${track.side === 'bonus' ? 'BONUS TRACK' : `SIDE ${track.side.toUpperCase()}`}`;
