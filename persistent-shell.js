@@ -278,6 +278,16 @@
     return path.endsWith('.html') || path.endsWith('/') || !path.split('/').pop().includes('.');
   };
 
+  const releasePageMedia = (doc) => {
+    if (!doc) return;
+    doc.querySelectorAll('video').forEach((video) => {
+      video.pause();
+      video.removeAttribute('src');
+      video.querySelectorAll('source').forEach((source) => source.removeAttribute('src'));
+      video.load();
+    });
+  };
+
   const navigate = (url, push = true) => {
     const target = new URL(url, location.href);
     if (!isInternalPage(target)) {
@@ -287,6 +297,7 @@
     if (!target.pathname.endsWith('about.html') && mode !== 'continuation') switchMode('continuation');
     if (push) history.pushState({ betweenWavesShell: true }, '', `${target.pathname}${target.search}${target.hash}`);
     const previousFrame = activeFrame;
+    releasePageMedia(activeDocument);
     const frame = document.createElement('iframe');
     const serial = ++frameSerial;
     frame.title = 'BETWEEN WAVES 页面内容';
@@ -297,7 +308,7 @@
     });
     document.body.append(frame);
     document.body.style.overflow = 'hidden';
-    let firstLoad = true;
+    let revealed = false;
     let boundDocument = null;
     const bindFrameContent = () => {
       let childDocument;
@@ -318,6 +329,21 @@
       const current = `${location.pathname}${location.search}${location.hash}`;
       if (visible !== current) history.pushState({ betweenWavesShell: true }, '', visible);
     };
+    const revealFrame = () => {
+      if (revealed || !frame.isConnected) return;
+      let ready = false;
+      try {
+        ready = frame.contentDocument?.readyState === 'interactive' || frame.contentDocument?.readyState === 'complete';
+      } catch {
+        return;
+      }
+      if (!ready) return;
+      bindFrameContent();
+      revealed = true;
+      requestAnimationFrame(() => { frame.style.opacity = '1'; });
+      if (previousFrame && previousFrame !== frame) setTimeout(() => previousFrame.remove(), 260);
+      frame.contentWindow.focus();
+    };
     const monitor = setInterval(() => {
       if (!frame.isConnected) {
         clearInterval(monitor);
@@ -325,18 +351,14 @@
       }
       try {
         if (frame.contentDocument !== boundDocument) bindFrameContent();
+        revealFrame();
       } catch {
         clearInterval(monitor);
       }
-    }, 90);
+    }, 50);
     frame.addEventListener('load', () => {
       bindFrameContent();
-      if (firstLoad) {
-        requestAnimationFrame(() => { frame.style.opacity = '1'; });
-        if (previousFrame && previousFrame !== frame) setTimeout(() => previousFrame.remove(), 420);
-        firstLoad = false;
-      }
-      frame.contentWindow.focus();
+      revealFrame();
     });
   };
 

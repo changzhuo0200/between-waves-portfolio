@@ -65,7 +65,9 @@
     video.playsInline = true;
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
-    video.preload = 'metadata';
+    // Keep the poster visible without fetching a 25–40 MB clip during page entry.
+    // The selected clip is requested only when the visitor explicitly presses play.
+    video.preload = 'none';
     video.poster = block.poster;
     video.setAttribute('aria-label', block.title);
     video.src = selectedSource;
@@ -161,7 +163,8 @@
     video.playsInline = true;
     video.setAttribute('playsinline', '');
     video.setAttribute('webkit-playsinline', '');
-    video.preload = 'metadata';
+    // Posters are enough for browsing; defer each large mobile clip until play.
+    video.preload = 'none';
     video.dataset.instagramPlayer = '';
 
     const details = element('figcaption', 'instagram-player__details');
@@ -194,7 +197,7 @@
       video.src = post.src;
       video.poster = post.poster;
       video.setAttribute('aria-label', `${post.title}，音乐：${post.song}`);
-      video.load();
+      if (shouldPlay) video.load();
       counter.textContent = `${String(nextIndex + 1).padStart(2, '0')} / ${String(block.posts.length).padStart(2, '0')}`;
       title.textContent = post.title;
       song.textContent = `♫ ${post.song}`;
